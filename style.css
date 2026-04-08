@@ -114,7 +114,7 @@ body {
    ======================================================== */
 .socio-section { padding: 140px 5%; background: linear-gradient(180deg, var(--cor-fundo) 0%, rgba(214, 69, 216, 0.05) 100%); }
 .socio-container { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; gap: 80px; }
-.socio-imagem-box { position: relative; width: 100%; max-width: 480px; }
+.socio-imagem-box { position: relative; width: 100%; max-width: 550px; }
 .glow-socio { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 120%; height: 120%; background: radial-gradient(circle, rgba(214, 69, 216, 0.25) 0%, rgba(65, 88, 246, 0.15) 40%, transparent 70%); filter: blur(50px); z-index: 0; }
 .foto-socio { position: relative; z-index: 1; width: 100%; border-radius: 35px; border: 1px solid var(--cor-borda); box-shadow: 0 30px 60px rgba(0,0,0,0.6); }
 
@@ -123,7 +123,7 @@ body {
 .socio-texto h2 { font-size: 3rem; font-weight: 700; margin-bottom: 25px; color: #fff; }
 .socio-texto h2 span { background: linear-gradient(135deg, var(--cor-rosa), var(--cor-azul)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .socio-texto p { font-size: 1.15rem; color: var(--cor-texto-secundario); margin-bottom: 20px; line-height: 1.7; }
-.socio-assinatura { margin-top: 30px; }
+.socio-assinatura { width: 100%; max-width: 200px; margin-top: 30px; }
 
 /* ========================================================
    SOBRE NÓS
@@ -281,4 +281,97 @@ PORTFÓLIO (COM EFEITO DE DESLIZE)
     .socio-imagem-box, .sobre-imagem img { max-width: 100%; }
     
     .servicos-grid, .portfolio-grid, .galeria-grid-completa { grid-template-columns: 1fr; gap: 20px; }
+}
+/* ========================================================
+   SEÇÃO DE CLIENTES (MARCAS)
+   ======================================================== */
+.clientes-section {
+    padding: 100px 5%;
+    background-color: var(--cor-fundo);
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+.clientes-header {
+    margin-bottom: 50px;
+}
+
+.clientes-header h2 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, #fff, #bbb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.clientes-header p {
+    color: var(--cor-texto-secundario);
+    font-size: 1.2rem;
+}
+
+/* Grade baseada na imagem enviada */
+.clientes-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Caixas dos Logos (Estilo Premium) */
+.cliente-logo {
+    background-color: var(--cor-superficie); /* Fundo preto ligeiramente mais claro */
+    border: 1px solid var(--cor-borda);
+    border-radius: 16px;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    
+    /* Deixa as marcas em tom de cinza e levemente transparentes por padrão */
+    filter: grayscale(100%) opacity(60%);
+    cursor: pointer;
+}
+
+.cliente-logo img {
+    max-width: 80%;
+    max-height: 60px; /* Mantém todas as marcas com proporções parecidas */
+    object-fit: contain;
+}
+
+/* Efeito de Hover: Acende a marca, ganha cor e borda neon */
+.cliente-logo:hover {
+    filter: grayscale(0%) opacity(100%);
+    transform: translateY(-5px);
+    border-color: rgba(214, 69, 216, 0.4); /* Usa o tom rosa da sua paleta na borda */
+    box-shadow: 0 10px 30px rgba(214, 69, 216, 0.1); /* Brilho neon leve */
+}
+
+/* ========================================================
+   RESPONSIVIDADE (TABLET E CELULAR)
+   ======================================================== */
+@media (max-width: 900px) {
+    .clientes-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .clientes-header h2 { font-size: 2.2rem; }
+    
+    .clientes-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    
+    .cliente-logo {
+        padding: 30px 15px;
+    }
+    
+    .cliente-logo img {
+        max-height: 45px;
+    }
 }
