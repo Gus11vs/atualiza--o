@@ -7,189 +7,289 @@
     
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="img/oyo-logo.png">
 
     <style>
-        #preloader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: #000000; z-index: 99999;
-            display: flex; justify-content: center; align-items: center;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
+        /* --- ESTILOS APPLE / MINIMALISTA --- */
+        body {
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+            overflow-x: hidden;
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
-        #oyo-draw { width: 400px; max-width: 90vw; height: auto; }
-        .draw-text-oyo {
-            font-size: 75px; font-family: 'SF Pro Display', sans-serif; font-weight: 800;
-            fill: transparent; stroke: #d645d8; stroke-width: 2px;
-            stroke-dasharray: 800; stroke-dashoffset: 800;
-            animation: drawLine 2s ease forwards, fillTextNeon 1s ease 1.8s forwards;
+
+        /* Cabeçalho Minimalista de Vidro */
+        .cabecalho-minimalista {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 1000;
         }
-        .draw-text-solutions {
-            font-size: 20px; font-family: 'SF Pro Display', sans-serif; font-weight: 300; letter-spacing: 12px;
-            fill: transparent; stroke: #ffffff; stroke-width: 1px;
-            stroke-dasharray: 500; stroke-dashoffset: 500;
-            animation: drawLine 2s ease 0.5s forwards, fillTextWhite 1s ease 2.2s forwards;
+
+        .cabecalho-minimalista a {
+            text-decoration: none;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+            transition: all 0.3s ease;
         }
-        @keyframes drawLine { to { stroke-dashoffset: 0; } }
-        @keyframes fillTextNeon { to { fill: url(#neon-grad); stroke-width: 0; } }
-        @keyframes fillTextWhite { to { fill: #ffffff; stroke-width: 0; } }
-        body.loaded #preloader { opacity: 0; visibility: hidden; pointer-events: none; }
+
+        .cabecalho-minimalista a:hover {
+            color: var(--cor-rosa);
+            transform: scale(1.02);
+        }
+
+        /* Container Principal */
+        .container-portfolio {
+            flex: 1;
+            padding: 120px 5% 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .titulo-pagina {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff, var(--cor-rosa));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Grid de Eventos Inteligente */
+        .grid-eventos {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        /* Cartão de Evento Premium */
+        .card-evento {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .card-evento:hover {
+            transform: translateY(-10px);
+            border-color: rgba(214, 69, 216, 0.3); /* Rosa OYO sutil */
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5), 0 0 20px rgba(214, 69, 216, 0.1);
+        }
+
+        .card-img-container {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .card-evento img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .card-evento:hover img {
+            transform: scale(1.05);
+        }
+
+        .card-info {
+            padding: 20px;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .card-info h3 {
+            color: #fff;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .card-info p {
+            color: var(--cor-texto-secundario);
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Loader enquanto puxa do banco */
+        .loader-eventos {
+            text-align: center;
+            color: var(--cor-texto-secundario);
+            padding: 50px;
+            font-size: 1.2rem;
+            grid-column: 1 / -1;
+        }
+
+        /* Botão Voltar */
+        .btn-voltar {
+            display: inline-block;
+            margin-top: 50px;
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+        .btn-voltar:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--cor-rosa);
+        }
+
+        /* Cursor Glow Suave */
+        .cursor-glow {
+            width: 300px; height: 300px; opacity: 0.15;
+            position: fixed; pointer-events: none;
+            background: radial-gradient(circle, var(--cor-rosa) 0%, transparent 70%);
+            border-radius: 50%; z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s ease;
+        }
     </style>
 </head>
 <body>
 
-    <div id="preloader">
-        <svg id="oyo-draw" viewBox="0 0 500 150">
-            <defs>
-                <linearGradient id="neon-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" style="stop-color:#d645d8; stop-opacity:1" />
-                    <stop offset="100%" style="stop-color:#4158f6; stop-opacity:1" />
-                </linearGradient>
-            </defs>
-            <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" class="draw-text-oyo">OYO</text>
-            <text x="52%" y="90%" dominant-baseline="middle" text-anchor="middle" class="draw-text-solutions">SOLUTIONS</text>
-        </svg>
-    </div>
-    <header class="cabecalho">
-        <div class="logo-texto">OYO <span>SOLUTION</span></div>
-        <div class="menu-hamburguer" id="menu-hamburguer">
-            <span class="linha"></span>
-            <span class="linha"></span>
-            <span class="linha"></span>
-        </div>
-        <nav class="menu" id="menu">
-            <ul>
-                <li><a href="index.html#inicio">Início</a></li>
-                <li><a href="index.html#sobre">Sobre Nós</a></li>
-                <li><a href="index.html#servicos">Serviços</a></li>
-                <li><a href="index.html#portfolio">Portfólio</a></li>
-                <li><a href="index.html#contato">Contato</a></li>
-            </ul>
-        </nav>
+    <header class="cabecalho-minimalista">
+        <a href="index.html">
+            OYO <span style="color:var(--cor-rosa)">Solution</span>
+        </a>
     </header>
 
-    <section class="hero-interna animar-scroll">
-        <h1>Nosso Portfólio</h1>
-        <p>Explore todos os nossos projetos e eventos realizados com excelência.</p>
-    </section>
-
-    <main class="galeria-grid-completa animar-scroll">
+    <main class="container-portfolio">
+        <h1 class="titulo-pagina" data-aos="fade-down">Eventos Realizados</h1>
         
-        <a href="carnatal.html" class="portfolio-item">
-            <img src="img/carnatal_capa.png" alt="CARNATAL 2025"> 
-            <div class="overlay">
-                <h3>CARNATAL 2025</h3>
-            </div>
-        </a>
+        <div id="grid-eventos" class="grid-eventos">
+            <div class="loader-eventos">Carregando portfólio espetacular...</div>
+        </div>
 
-        <a href="expo.html" class="portfolio-item">
-            <img src="img/expo1.jpeg" alt="EXPO MARANHÃO">
-            <div class="overlay">
-                <h3>EXPO MARANHÃO</h3>
-            </div>
-        </a>
+        <div style="text-align: center;">
+            <a href="index.html" class="btn-voltar glow-effect" data-aos="fade-up">← Voltar para o Início</a>
+        </div>
+    </main>
 
-        <a href="mrv.html" class="portfolio-item">
-            <img src="img/mrv-capa.jpeg" alt="CONVENÇÃO DA MRV">
-            <div class="overlay">
-                <h3>CONVENÇÃO DA MRV</h3>
-            </div>
-        </a>
-
-        <a href="#" class="portfolio-item">
-            <img src="img/oyo_logo.png" alt="ESTRUTURA DE SOM">
-            <div class="overlay">
-                <h3>ESTRUTURA DE SOM</h3>
-            </div>
-        </a>
-
-        <a href="#" class="portfolio-item">
-            <img src="img/oyo_logo.png" alt="PALCO CORPORATIVO">
-            <div class="overlay">
-                <h3>PALCO CORPORATIVO</h3>
-            </div>
-        </a>
-
-        <a href="#" class="portfolio-item">
-            <img src="img/oyo_logo.png" alt="PAINEL DE LED">
-            <div class="overlay">
-                <h3>PAINEL DE LED</h3>
-            </div>
-        </a>
-
-        <a href="#" class="portfolio-item">
-            <img src="img/oyo_logo.png" alt="ILUMINAÇÃO CÊNICA">
-            <div class="overlay">
-                <h3>ILUMINAÇÃO CÊNICA</h3>
-            </div>
-        </a>
-
-        <a href="#" class="portfolio-item">
-            <img src="img/oyo_logo.png" alt="PALCO CORPORATIVO 2">
-            <div class="overlay">
-                <h3>PALCO CORPORATIVO 2</h3>
-            </div>
-        </a>
-
-        <a href="#" class="portfolio-item">
-            <img src="img/oyo_logo.png" alt="EVENTO AUTOMOTIVO">
-            <div class="overlay">
-                <h3>EVENTO AUTOMOTIVO</h3>
-            </div>
-        </a>
-
-        <a href="#" class="portfolio-item">
-            <img src="img/oyo_logo.png" alt="SHOW NACIONAL">
-            <div class="overlay">
-                <h3>SHOW NACIONAL</h3>
-            </div>
-        </a>
-
-        <a href="#" class="portfolio-item">
-            <img src="img/oyo_logo.png" alt="CENOGRAFIA 3D">
-            <div class="overlay">
-                <h3>CENOGRAFIA 3D</h3>
-            </div>
-        </a>
-
-        <a href="#" class="portfolio-item">
-            <img src="img/oyo_logo.png" alt="STAND FEIRA">
-            <div class="overlay">
-                <h3>STAND FEIRA</h3>
-            </div>
-        </a>
-
-        <a href="#" class="portfolio-item">
-            <img src="img/oyo_logo.png" alt="CONGRESSO MÉDICO">
-            <div class="overlay">
-                <h3>CONGRESSO MÉDICO</h3>
-            </div>
-        </a>
-
-        <a href="#" class="portfolio-item">
-            <img src="img/oyo_logo.png" alt="FESTIVAL DE VERÃO">
-            <div class="overlay">
-                <h3>FESTIVAL DE VERÃO</h3>
-            </div>
-        </a>
-
-        <a href="#" class="portfolio-item">
-            <img src="img/oyo_logo.png" alt="MONTAGEM BOX TRUSS">
-            <div class="overlay">
-                <h3>MONTAGEM BOX TRUSS</h3>
-            </div>
-        </a>
-
-    </main> 
-    
-    <div style="text-align: center; padding: 40px 0;" class="animar-scroll container-navegacao">
-        <a href="index.html" class="btn-voltar">← Voltar para a Página Inicial</a>
-    </div>
-
-    <footer class="rodape">
-        <p>&copy; 2026 OYO Solution. Todos os direitos reservados. Transformando eventos em espetáculos.</p>
-    <p>Produzido por Gustavo Vieira</p>
+    <footer class="rodape" style="text-align: center; padding: 30px; border-top: 1px solid rgba(255,255,255,0.05); margin-top: auto;">
+        <p style="color: var(--cor-texto-secundario); font-size: 0.9rem;">&copy; 2026 OYO Solution. Transformando eventos em espetáculos.</p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="script.js"></script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+
+        // SUAS CHAVES DO FIREBASE
+        const firebaseConfig = {
+            apiKey: "AIzaSyBuBNYOU6hQF5CQPMVtZ6qDjtY-cxpaeBA",
+            authDomain: "oyo-eventos.firebaseapp.com",
+            projectId: "oyo-eventos",
+            storageBucket: "oyo-eventos.firebasestorage.app",
+            messagingSenderId: "185927669696",
+            appId: "1:185927669696:web:d7f8d8f6e54cab62411a25"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function carregarEventos() {
+            const grid = document.getElementById('grid-eventos');
+            
+            try {
+                // Puxa os eventos ordenados do mais novo para o mais velho
+                const q = query(collection(db, "eventos"), orderBy("criadoEm", "desc"));
+                const querySnapshot = await getDocs(q);
+                
+                grid.innerHTML = ''; // Limpa o "Carregando..."
+
+                if (querySnapshot.empty) {
+                    grid.innerHTML = '<div class="loader-eventos">Nenhum evento cadastrado ainda.</div>';
+                    return;
+                }
+
+                querySnapshot.forEach((doc) => {
+                    const evento = doc.data();
+                    // Pega a primeira foto enviada como capa
+                    const fotoCapa = (evento.fotos && evento.fotos.length > 0) ? evento.fotos[0] : 'img/oyo-logo.png';
+                    
+                    // Monta o HTML de cada cartão
+                    const cardHTML = `
+                        <a href="evento.html?id=${doc.id}" class="card-evento glow-effect" data-aos="fade-up">
+                            <div class="card-img-container">
+                                <img src="${fotoCapa}" alt="${evento.nome}">
+                            </div>
+                            <div class="card-info">
+                                <h3>${evento.nome}</h3>
+                                <p>
+                                    <span>📍 ${evento.local}</span>
+                                </p>
+                            </div>
+                        </a>
+                    `;
+                    grid.innerHTML += cardHTML;
+                });
+
+                // Reinicia o AOS para animar os novos itens que chegaram do banco
+                AOS.refresh();
+
+            } catch (erro) {
+                console.error("Erro ao carregar eventos:", erro);
+                grid.innerHTML = '<div class="loader-eventos" style="color:red;">Erro ao carregar o portfólio. Tente novamente mais tarde.</div>';
+            }
+        }
+
+        // Chama a função assim que a página carrega
+        carregarEventos();
+    </script>
+
+    <script>
+        AOS.init({ duration: 1000, once: true, offset: 50 });
+
+        // Efeito do Cursor Neon Sutil
+        const cursorGlow = document.createElement('div');
+        cursorGlow.classList.add('cursor-glow');
+        document.body.appendChild(cursorGlow);
+
+        document.addEventListener('mousemove', (e) => {
+            requestAnimationFrame(() => {
+                cursorGlow.style.left = `${e.clientX}px`;
+                cursorGlow.style.top = `${e.clientY}px`;
+            });
+            if (cursorGlow.style.opacity === '0' || cursorGlow.style.opacity === '') {
+                cursorGlow.style.opacity = '0.15';
+            }
+        });
+
+        // Efeito Glow nas bordas (sutil nos cartões)
+        document.addEventListener('mousemove', e => {
+            const glowElements = document.querySelectorAll('.glow-effect');
+            glowElements.forEach(element => {
+                const rect = element.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                element.style.setProperty('--mouse-x', `${x}px`);
+                element.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
 </body>
 </html>

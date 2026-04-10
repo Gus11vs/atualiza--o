@@ -1,248 +1,355 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OYO Solution</title>
-    
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="img/oyo-logo.png">
-
-    <style>
-        #preloader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: #000000; z-index: 99999;
-            display: flex; justify-content: center; align-items: center;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
-        }
+    <!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>OYO Solution</title>
         
-        #oyo-draw { width: 400px; max-width: 90vw; height: auto; }
-        
-        .draw-text-oyo {
-            font-size: 75px; font-family: 'SF Pro Display', sans-serif; font-weight: 800;
-            fill: transparent; stroke: #d645d8; stroke-width: 2px;
-            stroke-dasharray: 800; stroke-dashoffset: 800;
-            animation: drawLine 2s ease forwards, fillTextNeon 1s ease 1.8s forwards;
-        }
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+        <link rel="icon" type="image/png" href="img/oyo-logo.png">
 
-        .draw-text-solutions {
-            font-size: 20px; font-family: 'SF Pro Display', sans-serif; font-weight: 300; letter-spacing: 12px;
-            fill: transparent; stroke: #ffffff; stroke-width: 1px;
-            stroke-dasharray: 500; stroke-dashoffset: 500;
-            animation: drawLine 2s ease 0.5s forwards, fillTextWhite 1s ease 2.2s forwards;
-        }
+        <style>
+            #preloader {
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                background-color: #000000; z-index: 99999;
+                display: flex; justify-content: center; align-items: center;
+                transition: opacity 0.8s ease, visibility 0.8s ease;
+            }
+            
+            #oyo-draw { width: 400px; max-width: 90vw; height: auto; }
+            
+            .draw-text-oyo {
+                font-size: 75px; font-family: 'SF Pro Display', sans-serif; font-weight: 800;
+                fill: transparent; stroke: #d645d8; stroke-width: 2px;
+                stroke-dasharray: 800; stroke-dashoffset: 800;
+                animation: drawLine 2s ease forwards, fillTextNeon 1s ease 1.8s forwards;
+            }
 
-        @keyframes drawLine { to { stroke-dashoffset: 0; } }
-        @keyframes fillTextNeon { to { fill: url(#neon-grad); stroke-width: 0; } }
-        @keyframes fillTextWhite { to { fill: #ffffff; stroke-width: 0; } }
-        
-        body.loaded #preloader { opacity: 0; visibility: hidden; pointer-events: none; }
-    </style>
-</head>
-<body>
+            .draw-text-solutions {
+                font-size: 20px; font-family: 'SF Pro Display', sans-serif; font-weight: 300; letter-spacing: 12px;
+                fill: transparent; stroke: #ffffff; stroke-width: 1px;
+                stroke-dasharray: 500; stroke-dashoffset: 500;
+                animation: drawLine 2s ease 0.5s forwards, fillTextWhite 1s ease 2.2s forwards;
+            }
 
-    <div id="preloader">
-        <svg id="oyo-draw" viewBox="0 0 500 150">
-            <defs>
-                <linearGradient id="neon-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" style="stop-color:#d645d8; stop-opacity:1" />
-                    <stop offset="100%" style="stop-color:#4158f6; stop-opacity:1" />
-                </linearGradient>
-            </defs>
-            <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" class="draw-text-oyo">OYO</text>
-            <text x="52%" y="90%" dominant-baseline="middle" text-anchor="middle" class="draw-text-solutions">SOLUTIONS</text>
-        </svg>
+            @keyframes drawLine { to { stroke-dashoffset: 0; } }
+            @keyframes fillTextNeon { to { fill: url(#neon-grad); stroke-width: 0; } }
+            @keyframes fillTextWhite { to { fill: #ffffff; stroke-width: 0; } }
+            
+            body.loaded #preloader { opacity: 0; visibility: hidden; pointer-events: none; }
+        </style>
+    </head>
+    <body>
+
+        <div id="preloader">
+            <svg id="oyo-draw" viewBox="0 0 500 150">
+                <defs>
+                    <linearGradient id="neon-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#d645d8; stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#4158f6; stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" class="draw-text-oyo">OYO</text>
+                <text x="52%" y="90%" dominant-baseline="middle" text-anchor="middle" class="draw-text-solutions">SOLUTIONS</text>
+            </svg>
+        </div>
+
+        <header class="cabecalho">
+            <div class="logo-container">
+                <h1 class="logo-texto">OYO <span>SOLUTION</span></h1>
+            </div>
+            <div class="menu-hamburguer" id="menu-hamburguer">
+                <span class="linha"></span><span class="linha"></span><span class="linha"></span>
+            </div>
+            <nav class="menu" id="menu">
+                <ul>
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#sobre">Sobre Nós</a></li>
+                    <li><a href="#servicos">Serviços</a></li>
+                    <li><a href="#portfolio">Portfólio</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section id="inicio" class="hero">
+            <div class="overlay-hero"></div>
+            
+            <div class="luz-marca-fundo"></div>
+
+            <div class="hero-conteudo" data-aos="zoom-in" data-aos-duration="1200">
+                <h2>A Sabedoria Que Inspira Nossa Jornada</h2>
+                <p>Soluções inteligentes e inovadoras para o seu negócio.</p>
+                <a href="#contato" class="btn-destaque glow-effect">Fale Conosco</a>
+            </div>
+        </section>
+
+<section id="sobre" class="sobre-nos-reveal">
+    <div class="reveal-layer">
+        <img src="img/fundolog.png" alt="Logo OYO Solution" class="logo-background-secreta">
     </div>
 
-    <header class="cabecalho">
-        <div class="logo-container">
-            <h1 class="logo-texto">OYO <span>SOLUTION</span></h1>
-        </div>
-        <div class="menu-hamburguer" id="menu-hamburguer">
-            <span class="linha"></span><span class="linha"></span><span class="linha"></span>
-        </div>
-        <nav class="menu" id="menu">
-            <ul>
-                <li><a href="#inicio">Início</a></li>
-                <li><a href="#sobre">Sobre Nós</a></li>
-                <li><a href="#servicos">Serviços</a></li>
-                <li><a href="#portfolio">Portfólio</a></li>
-                <li><a href="#contato">Contato</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <section id="inicio" class="hero">
-        <div class="overlay-hero"></div>
+    <div class="sobre-texto-central" data-aos="fade-up" data-aos-duration="1000">
+        <span class="tag-section">Nossa Essência</span>
+        <h2 class="titulo-apple">A Sabedoria Por Trás da <span class="gradient-text">OYO</span></h2>
         
-        <div class="luz-marca-fundo"></div>
-
-        <div class="hero-conteudo" data-aos="zoom-in" data-aos-duration="1200">
-            <h2>A Sabedoria Que Inspira Nossa Jornada</h2>
-            <p>Soluções inteligentes e inovadoras para o seu negócio.</p>
-            <a href="#contato" class="btn-destaque glow-effect">Fale Conosco</a>
-        </div>
-    </section>
-
-    <section id="sobre" class="sobre-nos">
-        <div class="sobre-container">
-            <div class="sobre-texto" data-aos="fade-right">
-                <h2>A Sabedoria Por Trás da OYO</h2>
-                <p>Assim como a coruja, que possui uma visão em 360 graus e enxerga com clareza mesmo nos cenários mais desafiadores, a <strong>OYO Solution</strong> nasceu para trazer inteligência e precisão para o mercado de eventos e infraestrutura.</p>
-                <p>Nossa missão é transformar ideias em estruturas reais, entregando projetos impecáveis com tecnologia de ponta, painéis de LED de alta resolução e iluminação cênica que marcam a memória do seu público.</p>
-                <ul class="sobre-diferenciais">
-                    <li>✔ Visão Estratégica</li>
-                    <li>✔ Tecnologia e Inovação</li>
-                    <li>✔ Execução Impecável</li>
-                </ul>
+        <p class="p-destaque">
+            Assim como a coruja, que possui uma visão em 360 graus e enxerga com clareza nos cenários mais desafiadores, a <strong>OYO Solution</strong> nasceu para trazer inteligência e precisão para o mercado de eventos.
+        </p>
+        
+        <p class="p-secundario">
+            Transformamos ideias em estruturas reais, entregando projetos impecáveis com tecnologia de ponta, painéis de LED de alta resolução e iluminação cênica que marcam a memória do seu público.
+        </p>
+        
+        <ul class="sobre-diferenciais-inline">
+            <li><i class="icon-check">✨</i> Visão Estratégica</li>
+            <li><i class="icon-check">✨</i> Tecnologia e Inovação</li>
+            <li><i class="icon-check">✨</i> Execução Impecável</li>
+        </ul>
+    </div>
+</section>
+        <section id="servicos" class="servicos-section">
+            <div class="servicos-header" data-aos="fade-up">
+                <h2>Nossos Serviços</h2>
+                <p>Infraestrutura completa para transformar o seu evento em uma experiência inesquecível.</p>
             </div>
-            <div class="sobre-imagem" data-aos="fade-left">
-                <img src="img/oyo_logo.png" alt="Sabedoria OYO Solution" class="foto-socio">
-            </div>
-        </div>
-    </section>
-
-    <section id="servicos" class="servicos-section">
-        <div class="servicos-header" data-aos="fade-up">
-            <h2>Nossos Serviços</h2>
-            <p>Infraestrutura completa para transformar o seu evento em uma experiência inesquecível.</p>
-        </div>
-        <div class="servicos-grid">
-            <div class="servico-card glow-effect" data-aos="fade-up" data-aos-delay="100">
-                <div class="servico-conteudo">
-                    <div class="servico-icone">💡</div>
-                    <h3>Iluminação Cênica</h3>
-                    <p>Projetos de luz que criam a atmosfera perfeita, destacando cada momento do seu evento.</p>
+            <div class="servicos-grid">
+                <div class="servico-card glow-effect" data-aos="fade-up" data-aos-delay="100">
+                    <div class="servico-conteudo">
+                        <div class="servico-icone">💡</div>
+                        <h3>Iluminação Cênica</h3>
+                        <p>Projetos de luz que criam a atmosfera perfeita, destacando cada momento do seu evento.</p>
+                    </div>
+                </div>
+                <div class="servico-card glow-effect" data-aos="fade-up" data-aos-delay="200">
+                    <div class="servico-conteudo">
+                        <div class="servico-icone">📺</div>
+                        <h3>Painéis de LED</h3>
+                        <p>Telas de alta resolução e brilho intenso para transmissões imersivas e apresentações.</p>
+                    </div>
+                </div>
+                <div class="servico-card glow-effect" data-aos="fade-up" data-aos-delay="300">
+                    <div class="servico-conteudo">
+                        <div class="servico-icone">🏗️</div>
+                        <h3>Estruturas e Palcos</h3>
+                        <p>Montagem segura e robusta de palcos e estruturas em box truss para o seu evento.</p>
+                    </div>
+                </div>
+                <div class="servico-card glow-effect" data-aos="fade-up" data-aos-delay="400">
+                    <div class="servico-conteudo">
+                        <div class="servico-icone">🔊</div>
+                        <h3>Sonorização</h3>
+                        <p>Áudio de alta qualidade e potência, projetado para oferecer a melhor acústica possível.</p>
+                    </div>
                 </div>
             </div>
-            <div class="servico-card glow-effect" data-aos="fade-up" data-aos-delay="200">
-                <div class="servico-conteudo">
-                    <div class="servico-icone">📺</div>
-                    <h3>Painéis de LED</h3>
-                    <p>Telas de alta resolução e brilho intenso para transmissões imersivas e apresentações.</p>
+        </section>
+
+        <section id="clientes" class="clientes-section">
+            <div class="clientes-header" data-aos="fade-up">
+                <h2>Quem já nos contratou</h2>
+                <p>Grandes marcas confiam na tecnologia e estrutura da OYO Solution.</p>
+            </div>
+
+            <div class="clientes-grid" data-aos="fade-up" data-aos-delay="100">
+                <div class="cliente-logo glow-effect">
+                    <img src="img/coxinha.png" alt="Cliente 1">
+                </div>
+                
+                <div class="cliente-logo glow-effect">
+                    <img src="img/sebrae.png" alt="Cliente 2">
+                </div>
+                
+                <div class="cliente-logo glow-effect">
+                    <img src="img/band.png" alt="Cliente 3">
+                </div>
+                
+                <div class="cliente-logo glow-effect">
+                    <img src="img/oab.png" alt="Cliente 4">
+                </div>
+
+                <div class="cliente-logo glow-effect">
+                    <img src="img/unimed.png " alt="Cliente 5">
+                </div>
+
+                <div class="cliente-logo glow-effect">
+                    <img src="img/ufrn.png" alt="Cliente 6">
+                </div>
+
+                <div class="cliente-logo glow-effect">
+                    <img src="img/Brisanet.png" alt="Cliente 7">
+                </div>
+
+                <div class="cliente-logo glow-effect">
+                    <img src="img/clickmassa.png" alt="Cliente 8">
                 </div>
             </div>
-            <div class="servico-card glow-effect" data-aos="fade-up" data-aos-delay="300">
-                <div class="servico-conteudo">
-                    <div class="servico-icone">🏗️</div>
-                    <h3>Estruturas e Palcos</h3>
-                    <p>Montagem segura e robusta de palcos e estruturas em box truss para o seu evento.</p>
-                </div>
-            </div>
-            <div class="servico-card glow-effect" data-aos="fade-up" data-aos-delay="400">
-                <div class="servico-conteudo">
-                    <div class="servico-icone">🔊</div>
-                    <h3>Sonorização</h3>
-                    <p>Áudio de alta qualidade e potência, projetado para oferecer a melhor acústica possível.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="clientes" class="clientes-section">
-        <div class="clientes-header" data-aos="fade-up">
-            <h2>Quem já nos contratou</h2>
-            <p>Grandes marcas confiam na tecnologia e estrutura da OYO Solution.</p>
-        </div>
-
-        <div class="clientes-grid" data-aos="fade-up" data-aos-delay="100">
-            <div class="cliente-logo glow-effect">
-                <img src="img/coxinha.png" alt="Cliente 1">
-            </div>
-            
-            <div class="cliente-logo glow-effect">
-                <img src="img/sebrae.png" alt="Cliente 2">
-            </div>
-            
-            <div class="cliente-logo glow-effect">
-                <img src="img/band.png" alt="Cliente 3">
-            </div>
-            
-            <div class="cliente-logo glow-effect">
-                <img src="img/oab.png" alt="Cliente 4">
+        <section id="portfolio" class="portfolio-section">
+            <div class="portfolio-header" data-aos="fade-up">
+                <h2>Nosso Portfólio</h2>
+                <p class="subtitulo">Conheça nossos principais eventos e montagens.</p>
+                <p class="instrucao">*clique nas imagens para acessar*</p>
             </div>
 
-            <div class="cliente-logo glow-effect">
-                <img src="img/unimed.png " alt="Cliente 5">
-            </div>
-
-            <div class="cliente-logo glow-effect">
-                <img src="img/ufrn.png" alt="Cliente 6">
-            </div>
-
-            <div class="cliente-logo glow-effect">
-                <img src="img/Brisanet.png" alt="Cliente 7">
-            </div>
-
-            <div class="cliente-logo glow-effect">
-                <img src="img/clickmassa.png" alt="Cliente 8">
-            </div>
-        </div>
-    </section>
-
-       <section id="portfolio" class="portfolio-section">
-        <div class="portfolio-header" data-aos="fade-up">
-            <h2>Nosso Portfólio</h2>
-            <p class="subtitulo">Conheça nossos principais eventos e montagens.</p>
-            <p class="instrucao">*clique nas imagens para acessar*</p>
-        </div>
-
-        <div class="portfolio-grid portfolio-grid-2x2">
-            <a href="carnatal.html" class="portfolio-item" data-aos="fade-up" data-aos-delay="100">
-                <img src="img/carnatal_capa.png" alt="CARNATAL 2025">
-                <div class="overlay"><h3>CARNATAL 2025</h3></div>
-            </a>
-            <a href="expo.html" class="portfolio-item" data-aos="fade-up" data-aos-delay="200">
-                <img src="img/expo1.jpeg" alt="EXPO MARANHÃO">
-                <div class="overlay"><h3>EXPO MARANHÃO</h3></div>
-            </a>
-            <a href="mrv.html" class="portfolio-item" data-aos="fade-up" data-aos-delay="300">
-                <img src="img/mrv-capa.jpeg" alt="CONVENÇÃO DA MRV">
-                <div class="overlay"><h3>CONVENÇÃO DA MRV</h3></div>
-            </a>
-            <a href="todos-eventos.html" class="portfolio-item" data-aos="fade-up" data-aos-delay="400">
-                <img src="img/oyo_logo.png" alt="NOME DO EVENTO 4"> 
-                <div class="overlay"><h3>NOME DO EVENTO 4</h3></div>
-            </a>
-        </div>
-
-        <div class="portfolio-botao-container" data-aos="fade-up">
-            <a href="todos-eventos.html" class="btn-portfolio-completo glow-effect">
-                Ver Portfólio Completo <span class="seta">→</span>
-            </a>
-        </div>
-    </section>
-
-    <section id="contato" class="contato-section">
-        <div class="contato-container">
-            <div class="contato-info" data-aos="fade-right">
-                <h2>Pronto para realizar o seu evento?</h2>
-                <p>Transforme sua ideia em uma experiência inesquecível com a estrutura e tecnologia da OYO Solution. Nossa equipe está pronta para te atender!</p>
-                <a href="https://wa.me/55084988460925?text=Olá..." target="_blank" class="btn-whatsapp glow-effect">
-                    Faça seu orçamento agora 📱
+            <div class="portfolio-grid portfolio-grid-2x2">
+                <a href="carnatal.html" class="portfolio-item" data-aos="fade-up" data-aos-delay="100">
+                    <img src="img/carnatal_capa.png" alt="CARNATAL 2025">
+                    <div class="overlay"><h3>CARNATAL 2025</h3></div>
+                </a>
+                <a href="expo.html" class="portfolio-item" data-aos="fade-up" data-aos-delay="200">
+                    <img src="img/expo1.jpeg" alt="EXPO MARANHÃO">
+                    <div class="overlay"><h3>EXPO MARANHÃO</h3></div>
+                </a>
+                <a href="mrv.html" class="portfolio-item" data-aos="fade-up" data-aos-delay="300">
+                    <img src="img/mrv-capa.jpeg" alt="CONVENÇÃO DA MRV">
+                    <div class="overlay"><h3>CONVENÇÃO DA MRV</h3></div>
+                </a>
+                <a href="todos-eventos.html" class="portfolio-item" data-aos="fade-up" data-aos-delay="400">
+                    <img src="img/oyo_logo.png" alt="NOME DO EVENTO 4"> 
+                    <div class="overlay"><h3>NOME DO EVENTO 4</h3></div>
                 </a>
             </div>
-            <div class="contato-feedbacks" data-aos="fade-left">
-                <h3>Avaliações no Google</h3>
-                <div class="google-card glow-effect">
-                    <p class="google-nome">Cliente Satisfeito</p>
-                    <p class="google-estrelas">★★★★★</p>
-                    <p class="google-texto">"Estrutura impecável e painéis de LED incríveis. A OYO superou as expectativas!"</p>
-                </div>
-                <a href="https://g.page/r/Cd2TT6g2Kn6JEBM/review" target="_blank" class="btn-ver-google glow-effect">
-                    Ver mais no Google <span>G</span>
+
+            <div class="portfolio-botao-container" data-aos="fade-up">
+                <a href="todos-eventos.html" class="btn-portfolio-completo glow-effect">
+                    Ver Portfólio Completo <span class="seta">→</span>
                 </a>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <footer class="rodape">
-        <p>&copy; 2026 OYO Solution. Todos os direitos reservados. Transformando eventos em espetáculos.</p>
-        <p>Produzido por Gustavo Vieira</p>
+        <section id="contato" class="contato-section">
+            <div class="contato-container">
+                <div class="contato-info" data-aos="fade-right">
+                    <h2>Pronto para realizar o seu evento?</h2>
+                    <p>Transforme sua ideia em uma experiência inesquecível com a estrutura e tecnologia da OYO Solution. Nossa equipe está pronta para te atender!</p>
+                    <a href="https://wa.me/55084988460925?text=Olá..." target="_blank" class="btn-whatsapp glow-effect">
+                        Faça seu orçamento agora 📱
+                    </a>
+                </div>
+                <div class="contato-feedbacks" data-aos="fade-left">
+                    <h3>Avaliações no Google</h3>
+                    <div class="google-card glow-effect">
+                        <p class="google-nome">Cliente Satisfeito</p>
+                        <p class="google-estrelas">★★★★★</p>
+                        <p class="google-texto">"Estrutura impecável e painéis de LED incríveis. A OYO superou as expectativas!"</p>
+                    </div>
+                    <a href="https://g.page/r/Cd2TT6g2Kn6JEBM/review" target="_blank" class="btn-ver-google glow-effect">
+                        Ver mais no Google <span>G</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    <footer class="meu-rodape">
+    <div class="links-rodape" id="links-socios">
+    <!-- Links dos sócios serão inseridos automaticamente -->
+    </div>
+    
+
+    <div class="creditos-rodape">
+        <p>© 2026 OYO Solution. Todos os direitos reservados. Transformando eventos em espetáculos.</p>
+        <p>Produzido por Gustavo Vieira.</p>
+        <p>v5.10.4</p>
+    </div>
     </footer>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="script.js"></script>
-</body>
-</html>
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <script src="script.js"></script>
+        <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+import {
+    getFirestore,
+    collection,
+    getDocs,
+    query,
+    orderBy
+} from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+
+// Configuração do Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyBuBNYOU6hQF5CQPMVtZ6qDjtY-cxpaeBA",
+    authDomain: "oyo-eventos.firebaseapp.com",
+    projectId: "oyo-eventos",
+    storageBucket: "oyo-eventos.firebasestorage.app",
+    messagingSenderId: "185927669696",
+    appId: "1:185927669696:web:d7f8d8f6e54cab62411a25"
+};
+
+// Inicializa o Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Função para carregar os sócios no footer
+async function carregarSociosFooter() {
+    const container = document.getElementById("links-socios");
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    try {
+        const q = query(collection(db, "socios"), orderBy("criadoEm", "asc"));
+        const snapshot = await getDocs(q);
+
+        if (snapshot.empty) {
+            container.innerHTML = "<span>Nenhum sócio cadastrado.</span>";
+            return;
+        }
+
+        let primeiro = true;
+
+        snapshot.forEach((docSnap) => {
+            const socio = docSnap.data();
+
+            // Adiciona separador
+            if (!primeiro) {
+                const separador = document.createElement("span");
+                separador.className = "separador";
+                separador.textContent = " • ";
+                container.appendChild(separador);
+            }
+
+            // Cria o link do sócio
+            const link = document.createElement("a");
+            link.href = `socio.html?slug=${socio.slug}`;
+            link.textContent = `Sócio ${socio.nome}`;
+            container.appendChild(link);
+
+            primeiro = false;
+        });
+
+        // Administração
+        const sepAdmin = document.createElement("span");
+        sepAdmin.className = "separador";
+        sepAdmin.textContent = " • ";
+        container.appendChild(sepAdmin);
+
+        const adminLink = document.createElement("a");
+        adminLink.href = "admin.html";
+        adminLink.textContent = "Administração OYO";
+        container.appendChild(adminLink);
+
+        // Contato
+        const sepContato = document.createElement("span");
+        sepContato.className = "separador";
+        sepContato.textContent = " • ";
+        container.appendChild(sepContato);
+
+        const contatoLink = document.createElement("a");
+        contatoLink.href = "#contato";
+        contatoLink.textContent = "Contato";
+        container.appendChild(contatoLink);
+
+    } catch (erro) {
+        console.error("Erro ao carregar sócios:", erro);
+        container.innerHTML = "<span>Erro ao carregar sócios.</span>";
+    }
+}
+
+// Executa quando a página carregar
+carregarSociosFooter();
+</script>
+    </body>
+    </html>

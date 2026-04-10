@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administração - OYO Solution</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="img/oyo-logo.png">
+    <style>
+        /* --- ESTILOS ESPECÍFICOS PARA ADMIN.HTML --- */
+        body {
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+            overflow-x: hidden;
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .cabecalho-admin {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 1000;
+        }
+
+        .cabecalho-admin a {
+            text-decoration: none;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .cabecalho-admin a:hover {
+            color: var(--cor-rosa);
+            transform: scale(1.02);
+        }
+
+        .container-central {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 120px 20px 40px;
+        }
+
+        .form-admin {
+            width: 100%;
+            max-width: 400px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInAdmin 0.6s ease forwards;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        @keyframes fadeInAdmin {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .escondido { display: none !important; }
+
+        input, textarea {
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .cursor-glow {
+            width: 300px;
+            height: 300px;
+            opacity: 0.15;
+            position: fixed;
+            pointer-events: none;
+            background: radial-gradient(circle, var(--cor-rosa) 0%, transparent 70%);
+            z-index: 999;
+        }
+
+        /* 🍎 Lista de Itens (Eventos e Sócios) */
+        .lista-gerenciamento {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .card-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-info h3 { margin: 0; color: #fff; }
+        .card-info p { margin: 5px 0; color: var(--cor-texto-secundario); font-size: 0.9rem; }
+
+        .btn-excluir {
+            padding: 10px 15px;
+            border-radius: 10px;
+            border: none;
+            background: rgba(255, 59, 48, 0.15);
+            color: #ff3b30;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-excluir:hover { background: #ff3b30; color: #fff; }
+
+        .btn-secundario {
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: transparent;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<header class="cabecalho-admin">
+    <a href="index.html">
+        OYO <span style="color:var(--cor-rosa)">Solution</span>
+    </a>
+</header>
+
+<main class="container-central">
+    <div id="tela-login" class="form-admin glow-effect">
+        <h2 style="text-align: center;">Acesso Restrito</h2>
+        <input type="email" id="email" placeholder="E-mail Administrativo">
+        <input type="password" id="senha" placeholder="Senha">
+        <button id="btn-login" class="btn-destaque glow-effect">Entrar no Sistema</button>
+        <p id="msg-login" style="color:#ff4d4d;display:none;text-align:center;">Credenciais inválidas.</p>
+    </div>
+
+    <div id="tela-admin" class="escondido form-admin glow-effect" style="max-width:600px;">
+        <h2 style="color:var(--cor-rosa);text-align:center;">Painel de Controle</h2>
+        
+        <button id="btn-novo-evento" class="btn-destaque glow-effect" style="padding: 15px;">Cadastrar Novo Evento</button>
+        <button id="btn-ver-eventos" class="btn-secundario">Gerenciar Eventos Publicados</button>
+        
+        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 10px 0;">
+        
+        <button id="btn-abrir-socio" class="btn-destaque glow-effect" style="padding: 15px;">Adicionar Sócio</button>
+        <button id="btn-gerenciar-socios" class="btn-secundario">Gerenciar Sócios</button>
+
+        <p id="msg-status" style="text-align:center;font-weight:bold;"></p>
+    </div>
+
+    <div id="tela-cadastro-evento" class="escondido form-admin glow-effect" style="max-width:600px;">
+        <h2 style="color:var(--cor-rosa);text-align:center;">Novo Evento</h2>
+        <input type="text" id="nome-evento" placeholder="Nome do Evento">
+        <input type="text" id="data-evento" placeholder="Data">
+        <input type="text" id="local-evento" placeholder="Local">
+        <textarea id="descricao-evento" rows="5" placeholder="Descrição"></textarea>
+        <input type="file" id="fotos-evento" multiple accept="image/*">
+        <button id="btn-salvar" class="btn-destaque glow-effect">Salvar e Publicar</button>
+        <button onclick="voltarParaPrincipal()" class="btn-secundario">Voltar</button>
+    </div>
+
+    <div id="tela-socio" class="escondido form-admin glow-effect" style="max-width: 600px;">
+        <h2 style="color: var(--cor-rosa); text-align: center;">Novo Sócio</h2>
+        <input type="text" id="nome-socio" placeholder="Nome do Sócio">
+        <textarea id="descricao-socio" rows="5" placeholder="Descrição do Sócio"></textarea>
+        <input type="file" id="foto-socio" accept="image/*">
+        <button id="btn-salvar-socio" class="btn-destaque glow-effect">Salvar Sócio</button>
+        <button onclick="voltarParaPrincipal()" class="btn-secundario">Voltar</button>
+        <p id="msg-socio" style="text-align: center; font-weight: bold;"></p>
+    </div>
+
+    <div id="tela-eventos" class="escondido form-admin glow-effect" style="max-width:700px;">
+        <h2 style="color:var(--cor-rosa);text-align:center;">Gerenciar Eventos</h2>
+        <button onclick="voltarParaPrincipal()" class="btn-secundario">← Voltar</button>
+        <div id="lista-eventos" class="lista-gerenciamento"></div>
+    </div>
+
+    <div id="tela-gerenciar-socios" class="escondido form-admin glow-effect" style="max-width:700px;">
+        <h2 style="color:var(--cor-rosa);text-align:center;">Gerenciar Sócios</h2>
+        <button onclick="voltarParaPrincipal()" class="btn-secundario">← Voltar</button>
+        <div id="lista-socios" class="lista-gerenciamento"></div>
+    </div>
+</main>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyBuBNYOU6hQF5CQPMVtZ6qDjtY-cxpaeBA",
+    authDomain: "oyo-eventos.firebaseapp.com",
+    projectId: "oyo-eventos",
+    storageBucket: "oyo-eventos.firebasestorage.app",
+    messagingSenderId: "185927669696",
+    appId: "1:185927669696:web:d7f8d8f6e54cab62411a25"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const imgbbApiKey = "c7bd55b2887f25d3af1a79c5878c8fe1";
+
+/* ================= ELEMENTOS ================= */
+const telas = ['tela-login', 'tela-admin', 'tela-eventos', 'tela-socio', 'tela-gerenciar-socios', 'tela-cadastro-evento'];
+function mostrarTela(id) {
+    telas.forEach(t => document.getElementById(t).classList.add('escondido'));
+    document.getElementById(id).classList.remove('escondido');
+}
+window.voltarParaPrincipal = () => mostrarTela('tela-admin');
+
+/* ================= LOGIN ================= */
+document.getElementById('btn-login').addEventListener('click', async () => {
+    const email = document.getElementById('email').value;
+    const senha = document.getElementById('senha').value;
+    try {
+        await signInWithEmailAndPassword(auth, email, senha);
+        mostrarTela('tela-admin');
+    } catch (error) {
+        document.getElementById('msg-login').style.display = "block";
+    }
+});
+
+/* ================= NAVEGAÇÃO ================= */
+document.getElementById('btn-novo-evento').addEventListener('click', () => mostrarTela('tela-cadastro-evento'));
+document.getElementById('btn-abrir-socio').addEventListener('click', () => mostrarTela('tela-socio'));
+document.getElementById('btn-ver-eventos').addEventListener('click', () => { mostrarTela('tela-eventos'); carregarEventos(); });
+document.getElementById('btn-gerenciar-socios').addEventListener('click', () => { mostrarTela('tela-gerenciar-socios'); carregarSocios(); });
+
+/* ================= SALVAR EVENTO ================= */
+document.getElementById('btn-salvar').addEventListener('click', async () => {
+    const btn = document.getElementById('btn-salvar');
+    const nome = document.getElementById('nome-evento').value;
+    const data = document.getElementById('data-evento').value;
+    const local = document.getElementById('local-evento').value;
+    const descricao = document.getElementById('descricao-evento').value;
+    const arquivos = document.getElementById('fotos-evento').files;
+
+    if (!nome || !data || !local || !descricao || arquivos.length === 0) return alert("Preencha tudo!");
+
+    btn.innerText = "Enviando..."; btn.disabled = true;
+    try {
+        let urls = [];
+        for (let i = 0; i < arquivos.length; i++) {
+            const formData = new FormData();
+            formData.append('image', arquivos[i]);
+            const res = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbApiKey}`, { method: 'POST', body: formData });
+            const dados = await res.json();
+            urls.push(dados.data.url);
+        }
+        await addDoc(collection(db, "eventos"), { nome, data, local, descricao, fotos: urls, criadoEm: new Date() });
+        alert("Sucesso!");
+        voltarParaPrincipal();
+    } catch (e) { console.error(e); }
+    btn.innerText = "Salvar e Publicar"; btn.disabled = false;
+});
+
+/* ================= GERENCIAR EVENTOS ================= */
+async function carregarEventos() {
+    const lista = document.getElementById('lista-eventos');
+    lista.innerHTML = "Carregando...";
+    const snapshot = await getDocs(query(collection(db, "eventos"), orderBy("criadoEm", "desc")));
+    lista.innerHTML = "";
+    snapshot.forEach(docSnap => {
+        const item = docSnap.data();
+        const card = document.createElement('div');
+        card.className = 'card-item';
+        card.innerHTML = `<div class="card-info"><h3>${item.nome}</h3><p>${item.data}</p></div>
+                          <button class="btn-excluir" onclick="excluirItem('eventos', '${docSnap.id}', 'evento')">Excluir</button>`;
+        lista.appendChild(card);
+    });
+}
+
+/* ================= SALVAR SÓCIO ================= */
+document.getElementById("btn-salvar-socio").addEventListener("click", async () => {
+    const btn = document.getElementById("btn-salvar-socio");
+    const nome = document.getElementById("nome-socio").value;
+    const descricao = document.getElementById("descricao-socio").value;
+    const arquivo = document.getElementById("foto-socio").files[0];
+
+    if (!nome || !descricao || !arquivo) return alert("Preencha tudo!");
+
+    btn.innerText = "Salvando..."; btn.disabled = true;
+    try {
+        const formData = new FormData();
+        formData.append("image", arquivo);
+        const res = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbApiKey}`, { method: "POST", body: formData });
+        const dados = await res.json();
+        
+        await addDoc(collection(db, "socios"), { 
+            nome, descricao, foto: dados.data.url, 
+            slug: nome.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, "-"),
+            criadoEm: new Date() 
+        });
+        alert("Sócio cadastrado!");
+        voltarParaPrincipal();
+    } catch (e) { console.error(e); }
+    btn.innerText = "Salvar Sócio"; btn.disabled = false;
+});
+
+/* ================= GERENCIAR SÓCIOS ================= */
+async function carregarSocios() {
+    const lista = document.getElementById('lista-socios');
+    lista.innerHTML = "Carregando...";
+    const snapshot = await getDocs(query(collection(db, "socios"), orderBy("criadoEm", "desc")));
+    lista.innerHTML = "";
+    snapshot.forEach(docSnap => {
+        const item = docSnap.data();
+        const card = document.createElement('div');
+        card.className = 'card-item';
+        card.innerHTML = `<div class="card-info"><h3>${item.nome}</h3><p>Sócio cadastrado</p></div>
+                          <button class="btn-excluir" onclick="excluirItem('socios', '${docSnap.id}', 'socio')">Excluir</button>`;
+        lista.appendChild(card);
+    });
+}
+
+/* ================= FUNÇÃO EXCLUIR GENÉRICA ================= */
+window.excluirItem = async (pasta, id, tipo) => {
+    if (confirm(`Deseja mesmo excluir este ${tipo}?`)) {
+        await deleteDoc(doc(db, pasta, id));
+        tipo === 'evento' ? carregarEventos() : carregarSocios();
+    }
+}
+</script>
+
+<script>
+const cursorGlow=document.createElement('div');
+cursorGlow.classList.add('cursor-glow');
+document.body.appendChild(cursorGlow);
+document.addEventListener('mousemove',(e)=>{
+    requestAnimationFrame(()=>{
+        cursorGlow.style.left = e.clientX + 'px';
+        cursorGlow.style.top = e.clientY + 'px';
+        cursorGlow.style.transform = 'translate(-50%, -50%)';
+    });
+});
+</script>
+</body>
+</html>

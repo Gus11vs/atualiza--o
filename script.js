@@ -80,3 +80,21 @@ document.addEventListener('mousemove', (e) => {
 document.addEventListener('mouseleave', () => {
     cursorGlow.style.opacity = '0';
 });
+document.addEventListener("DOMContentLoaded", () => {
+    const revealSection = document.querySelector('.sobre-nos-reveal');
+    
+    if (revealSection) {
+        revealSection.addEventListener('mousemove', (e) => {
+            // Pega as dimensões da seção
+            const rect = revealSection.getBoundingClientRect();
+            
+            // Calcula a posição do mouse relativa à seção
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            // Envia as coordenadas para o CSS
+            revealSection.style.setProperty('--mouse-x', `${x}px`);
+            revealSection.style.setProperty('--mouse-y', `${y}px`);
+        });
+    }
+}); 

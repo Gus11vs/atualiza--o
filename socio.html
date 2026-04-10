@@ -83,25 +83,29 @@
         </div>
     </section>
 
-    <section id="socio-destaque" class="socio-section">
-        <div class="socio-container">
-            <div class="socio-imagem-box" data-aos="fade-right">
-                <div class="glow-socio"></div>
-                <img src="img/socio.png" alt="Marcos" class="foto-socio">
-            </div>
+  <section id="socio-destaque" class="socio-section">
+    <div class="socio-container">
+        <div class="socio-imagem-box" data-aos="fade-right">
+            <div class="glow-socio"></div>
+            <img id="foto-socio" src="img/socio.png" alt="Sócio" class="foto-socio">
+        </div>
 
-            <div class="socio-texto" data-aos="fade-left">
-                <span class="tag-socio">apresentação do Sócio</span>
-                <h2>Olá, eu sou <span>Marcos Vieira</span></h2>
-                <p>Com mais de X anos de experiência no mercado de eventos, minha missão na <strong>OYO Solution</strong> é garantir que a tecnologia e a estética caminhem juntas para superar suas expectativas.</p>
-                <p>Estou à frente da diretoria de [Área], focado em trazer inovação e precisão para cada projeto que assinamos.</p>
-                
-                <div class="socio-assinatura">
-                    <img src="img/assinatura-marcos.png" alt="Assinatura" style="max-width: 150px; filter: invert(1);">
-                </div>
+        <div class="socio-texto" data-aos="fade-left">
+            <span class="tag-socio">Apresentação do Sócio</span>
+            <h2>Olá, eu sou <span id="nome-socio">Nome do Sócio</span></h2>
+
+            <p id="descricao-socio">
+                Texto do sócio será carregado automaticamente.
+            </p>
+
+            <div class="socio-assinatura">
+                <img id="assinatura-socio" src="img/assinatura.png"
+                     alt="Assinatura"
+                     style="max-width: 150px; filter: invert(1); display: none;">
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <section id="sobre" class="sobre-nos">
         <div class="sobre-container">
@@ -291,5 +295,81 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="script.js"></script>
 
+   <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+import {
+    getFirestore,
+    collection,
+    query,
+    where,
+    getDocs,
+    orderBy,
+    limit
+} from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+
+// Configuração do Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyBuBNYOU6hQF5CQPMVtZ6qDjtY-cxpaeBA",
+    authDomain: "oyo-eventos.firebaseapp.com",
+    projectId: "oyo-eventos",
+    storageBucket: "oyo-eventos.firebasestorage.app",
+    messagingSenderId: "185927669696",
+    appId: "1:185927669696:web:d7f8d8f6e54cab62411a25"
+};
+
+// Inicializa o Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Inicializa animações AOS
+AOS.init();
+
+// Aguarda o carregamento da página
+document.addEventListener("DOMContentLoaded", async () => {
+    const nomeEl = document.getElementById("nome-socio");
+    const descricaoEl = document.getElementById("descricao-socio");
+    const fotoEl = document.getElementById("foto-socio");
+
+    try {
+        // Obtém o slug da URL
+        const params = new URLSearchParams(window.location.search);
+        let slug = params.get("socio");
+
+        let q;
+
+        if (slug) {
+            // Busca sócio específico pelo slug
+            q = query(collection(db, "socios"), where("slug", "==", slug));
+        } else {
+            // Caso não haja slug, carrega o sócio mais recente
+            q = query(
+                collection(db, "socios"),
+                orderBy("criadoEm", "desc"),
+                limit(1)
+            );
+        }
+
+        const snapshot = await getDocs(q);
+
+        if (snapshot.empty) {
+            console.warn("Nenhum sócio encontrado no Firebase.");
+            return;
+        }
+
+        snapshot.forEach((doc) => {
+            const socio = doc.data();
+
+            if (nomeEl) nomeEl.textContent = socio.nome || "Nome do Sócio";
+            if (descricaoEl) descricaoEl.textContent = socio.descricao || "Descrição não disponível.";
+            if (fotoEl && socio.foto) fotoEl.src = socio.foto;
+
+            document.title = `Sócio ${socio.nome} - OYO Solution`;
+        });
+
+    } catch (erro) {
+        console.error("Erro ao carregar dados do sócio:", erro);
+    }
+});
+</script>
 </body>
 </html>

@@ -375,3 +375,389 @@ PORTFÓLIO (COM EFEITO DE DESLIZE)
         max-height: 45px;
     }
 }
+.meu-rodape {
+  background-color: #000000; /* Fundo preto */
+  color: #888888; /* Cor do texto cinza, similar ao seu print */
+  text-align: center;
+  padding: 20px 0;
+  font-family: sans-serif;
+  font-size: 14px;
+}
+
+.links-rodape {
+  margin-bottom: 15px; /* Dá um espaço entre os links e os créditos */
+}
+
+.links-rodape a {
+  color: #bbbbbb; /* Deixa o link um pouco mais claro que o texto normal */
+  text-decoration: none; /* Tira o sublinhado */
+  transition: color 0.3s ease;
+}
+
+.links-rodape a:hover {
+  color: #ffffff; /* Fica branco quando passa o mouse por cima */
+}
+
+.separador {
+  margin: 0 10px;
+  color: #555555;
+}
+
+.creditos-rodape p {
+  margin: 5px 0; /* Controla o espaço entre as linhas de texto */
+}
+/* ===== SEÇÃO DO SÓCIO ===== */
+.socio-section {
+    padding: 120px 10%;
+    background: linear-gradient(180deg, #050505, #0a0a0a);
+}
+
+.socio-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+.socio-imagem-box {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    border-radius: 20px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 30px rgba(214, 69, 216, 0.2);
+}
+
+.foto-socio {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.glow-socio {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center,
+        rgba(214, 69, 216, 0.3),
+        transparent 70%);
+    z-index: 0;
+}
+
+.socio-texto {
+    max-width: 600px;
+}
+
+.tag-socio {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 5px 15px;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-radius: 20px;
+    background: rgba(214, 69, 216, 0.1);
+    color: #d645d8;
+}
+
+.socio-texto h2 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.socio-texto h2 span {
+    color: #d645d8;
+}
+
+.socio-texto p {
+    color: #ccc;
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
+
+.socio-assinatura {
+    margin-top: 20px;
+    opacity: 0.8;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .socio-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .socio-texto h2 {
+        font-size: 2rem;
+    }
+
+    .socio-imagem-box {
+        width: 250px;
+        height: 250px;
+    }
+}
+/* --- ESTILIZAÇÃO PREMIUM SEÇÃO SÓCIO --- */
+.socio-section {
+    padding: 120px 5%;
+    background: radial-gradient(circle at 20% 50%, rgba(214, 69, 216, 0.05) 0%, transparent 50%);
+    overflow: hidden;
+}
+
+.socio-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 80px;
+}
+
+/* Moldura da Imagem Estilo Apple */
+.socio-imagem-box {
+    position: relative;
+    flex-shrink: 0;
+    width: 420px;
+    height: 520px;
+}
+
+.foto-socio {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 40px; /* Bordas arredondadas Apple */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 2;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Efeito de brilho atrás da foto */
+.glow-socio {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 110%;
+    height: 110%;
+    background: linear-gradient(135deg, var(--cor-rosa), #4158f6);
+    filter: blur(50px);
+    opacity: 0.15;
+    z-index: 1;
+}
+
+.socio-imagem-box:hover .foto-socio {
+    transform: scale(1.03) translateY(-10px);
+    border-color: rgba(214, 69, 216, 0.4);
+}
+
+/* Textos e Tags */
+.tag-socio {
+    display: inline-block;
+    padding: 6px 16px;
+    background: rgba(214, 69, 216, 0.1);
+    border: 1px solid var(--cor-rosa);
+    border-radius: 50px;
+    color: var(--cor-rosa);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+}
+
+.socio-texto h2 {
+    font-size: 3.5rem;
+    line-height: 1.1;
+    margin-bottom: 30px;
+    font-weight: 800;
+}
+
+.socio-texto h2 span {
+    background: linear-gradient(135deg, #fff 30%, var(--cor-rosa) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#descricao-socio {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 40px;
+    max-width: 500px;
+}
+
+/* Responsividade */
+@media (max-width: 968px) {
+    .socio-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+    }
+    .socio-imagem-box {
+        width: 300px;
+        height: 380px;
+    }
+    .socio-texto h2 {
+        font-size: 2.5rem;
+    }
+    #descricao-socio {
+        margin: 0 auto 30px;
+    }
+}
+.socio-texto h2 span {
+    background: linear-gradient(135deg, #ffffff 20%, var(--cor-rosa) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block; /* Garante que o gradiente pegue a linha toda */
+}
+/* ==============================================================
+   SEÇÃO SOBRE - EFEITO REVEAL (LANTERNA)
+============================================================== */
+.sobre-nos-reveal {
+    position: relative;
+    padding: 150px 5%;
+    background-color: #000000; /* Fundo totalmente escuro */
+    color: #ffffff;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* A Mágica da Lanterna */
+.reveal-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none; /* Deixa o usuário clicar no texto através da imagem */
+    z-index: 1;
+    
+    /* Cria a máscara circular transparente */
+    -webkit-mask-image: radial-gradient(
+        circle 250px at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+        black 0%, 
+        transparent 100%
+    );
+    mask-image: radial-gradient(
+        circle 250px at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+        black 0%, 
+        transparent 100%
+    );
+    
+    opacity: 0; /* Começa invisível */
+    transition: opacity 0.5s ease;
+}
+
+/* Aparece suavemente quando o mouse entra na seção */
+.sobre-nos-reveal:hover .reveal-layer {
+    opacity: 0.8; 
+}
+
+/* A Logo Gigante no fundo (Ajustada) */
+/* A Logo GIGANTE no fundo */
+.logo-background-secreta {
+    width: 1000px; /* Aqui está o segredo: tamanho base bem maior */
+    max-width: 95vw; /* Garante que no celular ela não passe de 95% da tela */
+    height: auto;
+    object-fit: contain;
+    
+    opacity: 0.15; 
+    mix-blend-mode: screen; /* Continua removendo o fundo preto mágico */
+}
+
+/* --- ESTILOS DO TEXTO --- */
+.sobre-texto-central {
+    position: relative;
+    z-index: 2; /* Fica acima da logo */
+    max-width: 800px;
+    pointer-events: auto; /* Garante que o texto seja selecionável */
+}
+
+.sobre-texto-central .tag-section {
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #d645d8;
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.titulo-apple {
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 30px;
+    font-family: 'SF Pro Display', sans-serif;
+}
+
+.gradient-text {
+    background: linear-gradient(90deg, #d645d8, #4158f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.p-destaque {
+    font-size: 1.25rem;
+    color: #f5f5f7;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.p-secundario {
+    font-size: 1rem;
+    color: #a1a1a6;
+    line-height: 1.6;
+    margin-bottom: 40px;
+}
+
+.sobre-diferenciais-inline {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.sobre-diferenciais-inline li {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #e8e8ed;
+}
+
+/* --- RESPONSIVIDADE CELULAR --- */
+@media (max-width: 768px) {
+    .titulo-apple { 
+        font-size: 2.5rem; 
+    }
+    
+    .sobre-diferenciais-inline { 
+        flex-direction: column; 
+        gap: 15px; 
+    }
+    
+    /* 1. Desliga o efeito de lanterna no celular e deixa a camada visível */
+    .reveal-layer {
+        opacity: 1 !important; /* Mantém sempre ligada */
+        -webkit-mask-image: none !important; /* Remove o círculo mágico */
+        mask-image: none !important;
+    }
+
+    /* 2. Ajusta o tamanho da logo e coloca a "luz fraca fixa" */
+    .logo-background-secreta { 
+        width: 120%; /* Deixa ela um pouco maior que a tela para dar um efeito legal */
+        max-width: 450px;
+        opacity: 0.05 !important; /* 5% de visibilidade: uma luz muuuito fraca e elegante */
+    }
+}
