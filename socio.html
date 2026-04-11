@@ -16,22 +16,27 @@
             display: flex; justify-content: center; align-items: center;
             transition: opacity 0.8s ease, visibility 0.8s ease;
         }
+        
         #oyo-draw { width: 400px; max-width: 90vw; height: auto; }
+        
         .draw-text-oyo {
             font-size: 75px; font-family: 'SF Pro Display', sans-serif; font-weight: 800;
             fill: transparent; stroke: #d645d8; stroke-width: 2px;
             stroke-dasharray: 800; stroke-dashoffset: 800;
             animation: drawLine 2s ease forwards, fillTextNeon 1s ease 1.8s forwards;
         }
+
         .draw-text-solutions {
             font-size: 20px; font-family: 'SF Pro Display', sans-serif; font-weight: 300; letter-spacing: 12px;
             fill: transparent; stroke: #ffffff; stroke-width: 1px;
             stroke-dasharray: 500; stroke-dashoffset: 500;
             animation: drawLine 2s ease 0.5s forwards, fillTextWhite 1s ease 2.2s forwards;
         }
+
         @keyframes drawLine { to { stroke-dashoffset: 0; } }
         @keyframes fillTextNeon { to { fill: url(#neon-grad); stroke-width: 0; } }
         @keyframes fillTextWhite { to { fill: #ffffff; stroke-width: 0; } }
+        
         body.loaded #preloader { opacity: 0; visibility: hidden; pointer-events: none; }
     </style>
 </head>
@@ -52,18 +57,16 @@
 
     <header class="cabecalho">
         <div class="logo-container">
-            <h1 class="logo-texto">OYO <span>SOLUTION</span></h1>
+            <a href="index.html" style="text-decoration: none;">
+                <h1 class="logo-texto">OYO <span>SOLUTION</span></h1>
+            </a>
         </div>
-
         <div class="menu-hamburguer" id="menu-hamburguer">
-            <span class="linha"></span>
-            <span class="linha"></span>
-            <span class="linha"></span>
+            <span class="linha"></span><span class="linha"></span><span class="linha"></span>
         </div>
-
         <nav class="menu" id="menu">
             <ul>
-                <li><a href="#inicio">Início</a></li>
+                <li><a href="index.html">Início</a></li>
                 <li><a href="#sobre">Sobre Nós</a></li>
                 <li><a href="#servicos">Serviços</a></li>
                 <li><a href="#portfolio">Portfólio</a></li>
@@ -74,6 +77,7 @@
 
     <section id="inicio" class="hero">
         <div class="overlay-hero"></div>
+        
         <div class="luz-marca-fundo"></div>
 
         <div class="hero-conteudo" data-aos="zoom-in" data-aos-duration="1200">
@@ -83,48 +87,49 @@
         </div>
     </section>
 
-  <section id="socio-destaque" class="socio-section">
-    <div class="socio-container">
-        <div class="socio-imagem-box" data-aos="fade-right">
-            <div class="glow-socio"></div>
-            <img id="foto-socio" src="img/socio.png" alt="Sócio" class="foto-socio">
-        </div>
-
-        <div class="socio-texto" data-aos="fade-left">
-            <span class="tag-socio">Apresentação do Sócio</span>
-            <h2>Olá, eu sou <span id="nome-socio">Nome do Sócio</span></h2>
-
-            <p id="descricao-socio">
-                Texto do sócio será carregado automaticamente.
-            </p>
-
-            <div class="socio-assinatura">
-                <img id="assinatura-socio" src="img/assinatura.png"
-                     alt="Assinatura"
-                     style="max-width: 150px; filter: invert(1); display: none;">
+    <section id="socio-destaque" class="socio-section">
+        <div class="socio-container">
+            <div class="socio-imagem-box" data-aos="fade-right">
+                <div class="glow-socio"></div>
+                <img src="" alt="Foto do Sócio" class="foto-socio" id="socio-foto" style="display: none;"> 
             </div>
-        </div>
-    </div>
-</section>
 
-    <section id="sobre" class="sobre-nos">
-        <div class="sobre-container">
-            <div class="sobre-texto" data-aos="fade-right">
-                <h2>A Sabedoria Por Trás da OYO</h2>
-                <p>Assim como a coruja, que possui uma visão em 360 graus e enxerga com clareza mesmo nos cenários mais desafiadores, a <strong>OYO Solution</strong> nasceu para trazer inteligência e precisão para o mercado de eventos e infraestrutura.</p>
-                <p>Nossa missão é transformar ideias em estruturas reais, entregando projetos impecáveis com tecnologia de ponta, painéis de LED de alta resolução e iluminação cênica que marcam a memória do seu público.</p>
+            <div class="socio-texto" data-aos="fade-left">
+                <span class="tag-socio">APRESENTAÇÃO DO SÓCIO</span>
+                <h2>Olá, eu sou <span id="socio-nome">...</span></h2>
                 
-                <ul class="sobre-diferenciais">
-                    <li>✔ Visão Estratégica</li>
-                    <li>✔ Tecnologia e Inovação</li>
-                    <li>✔ Execução Impecável</li>
-                </ul>
+                <div id="socio-bio">
+                    </div>
+                
+                <div class="socio-assinatura" id="container-assinatura" style="display: none;">
+                    <img src="" alt="Assinatura" id="socio-assinatura" style="max-width: 150px; filter: invert(1);">
+                </div>
             </div>
+        </div>
+    </section>
 
-            <div class="sobre-imagem" data-aos="fade-left">
-                <img src="img/oyo_logo.png" alt="Sabedoria OYO Solution">
-                <div class="container-luz"></div>
-            </div>
+    <section id="sobre" class="sobre-nos-reveal">
+        <div class="reveal-layer">
+            <img src="img/fundolog.png" alt="Logo OYO Solution" class="logo-background-secreta">
+        </div>
+
+        <div class="sobre-texto-central" data-aos="fade-up" data-aos-duration="1000">
+            <span class="tag-section">Nossa Essência</span>
+            <h2 class="titulo-apple">A Sabedoria Por Trás da <span class="gradient-text">OYO</span></h2>
+            
+            <p class="p-destaque">
+                Assim como a coruja, que possui uma visão em 360 graus e enxerga com clareza nos cenários mais desafiadores, a <strong>OYO Solution</strong> nasceu para trazer inteligência e precisão para o mercado de eventos.
+            </p>
+            
+            <p class="p-secundario">
+                Transformamos ideias em estruturas reais, entregando projetos impecáveis com tecnologia de ponta, painéis de LED de alta resolução e iluminação cênica que marcam a memória do seu público.
+            </p>
+            
+            <ul class="sobre-diferenciais-inline">
+                <li><i class="icon-check">✨</i> Visão Estratégica</li>
+                <li><i class="icon-check">✨</i> Tecnologia e Inovação</li>
+                <li><i class="icon-check">✨</i> Execução Impecável</li>
+            </ul>
         </div>
     </section>
 
@@ -133,76 +138,57 @@
             <h2>Nossos Serviços</h2>
             <p>Infraestrutura completa para transformar o seu evento em uma experiência inesquecível.</p>
         </div>
-        
         <div class="servicos-grid">
             <div class="servico-card glow-effect" data-aos="fade-up" data-aos-delay="100">
-                <div class="servico-icone">💡</div>
-                <h3>Iluminação Cênica</h3>
-                <p>Projetos de luz que criam a atmosfera perfeita, destacando cada momento do seu evento com precisão.</p>
+                <div class="servico-conteudo">
+                    <div class="servico-icone">💡</div>
+                    <h3>Iluminação Cênica</h3>
+                    <p>Projetos de luz que criam a atmosfera perfeita, destacando cada momento do seu evento.</p>
+                </div>
             </div>
-            
             <div class="servico-card glow-effect" data-aos="fade-up" data-aos-delay="200">
-                <div class="servico-icone">📺</div>
-                <h3>Painéis de LED</h3>
-                <p>Telas de alta resolução e brilho intenso para transmissões imersivas, apresentações e cenografia digital.</p>
+                <div class="servico-conteudo">
+                    <div class="servico-icone">📺</div>
+                    <h3>Painéis de LED</h3>
+                    <p>Telas de alta resolução e brilho intenso para transmissões imersivas e apresentações.</p>
+                </div>
             </div>
-            
             <div class="servico-card glow-effect" data-aos="fade-up" data-aos-delay="300">
-                <div class="servico-icone">🏗️</div>
-                <h3>Estruturas e Palcos</h3>
-                <p>Montagem segura e robusta de palcos, praticáveis e estruturas em box truss (alumínio) para qualquer tamanho de evento.</p>
+                <div class="servico-conteudo">
+                    <div class="servico-icone">🏗️</div>
+                    <h3>Estruturas e Palcos</h3>
+                    <p>Montagem segura e robusta de palcos e estruturas em box truss para o seu evento.</p>
+                </div>
             </div>
-
             <div class="servico-card glow-effect" data-aos="fade-up" data-aos-delay="400">
-                <div class="servico-icone">🎨</div>
-                <h3>Cenografia e Projetos 3D</h3>
-                <p>Planejamento visual completo, do rascunho até a execução.</p>
+                <div class="servico-conteudo">
+                    <div class="servico-icone">🔊</div>
+                    <h3>Sonorização</h3>
+                    <p>Áudio de alta qualidade e potência, projetado para oferecer a melhor acústica possível.</p>
+                </div>
             </div>
         </div>
     </section>
 
-        <section id="clientes" class="clientes-section">
+    <section id="clientes" class="clientes-section">
         <div class="clientes-header" data-aos="fade-up">
             <h2>Quem já nos contratou</h2>
             <p>Grandes marcas confiam na tecnologia e estrutura da OYO Solution.</p>
         </div>
 
         <div class="clientes-grid" data-aos="fade-up" data-aos-delay="100">
-            <div class="cliente-logo glow-effect">
-                <img src="img/coxinha.png" alt="Cliente 1">
-            </div>
-            
-            <div class="cliente-logo glow-effect">
-                <img src="img/sebrae.png" alt="Cliente 2">
-            </div>
-            
-            <div class="cliente-logo glow-effect">
-                <img src="img/band.png" alt="Cliente 3">
-            </div>
-            
-            <div class="cliente-logo glow-effect">
-                <img src="img/oab.png" alt="Cliente 4">
-            </div>
-
-            <div class="cliente-logo glow-effect">
-                <img src="img/unimed.png " alt="Cliente 5">
-            </div>
-
-            <div class="cliente-logo glow-effect">
-                <img src="img/ufrn.png" alt="Cliente 6">
-            </div>
-
-            <div class="cliente-logo glow-effect">
-                <img src="img/Brisanet.png" alt="Cliente 7">
-            </div>
-
-            <div class="cliente-logo glow-effect">
-                <img src="img/clickmassa.png" alt="Cliente 8">
-            </div>
+            <div class="cliente-logo glow-effect"><img src="img/coxinha.png" alt="Cliente 1"></div>
+            <div class="cliente-logo glow-effect"><img src="img/sebrae.png" alt="Cliente 2"></div>
+            <div class="cliente-logo glow-effect"><img src="img/band.png" alt="Cliente 3"></div>
+            <div class="cliente-logo glow-effect"><img src="img/oab.png" alt="Cliente 4"></div>
+            <div class="cliente-logo glow-effect"><img src="img/unimed.png " alt="Cliente 5"></div>
+            <div class="cliente-logo glow-effect"><img src="img/ufrn.png" alt="Cliente 6"></div>
+            <div class="cliente-logo glow-effect"><img src="img/Brisanet.png" alt="Cliente 7"></div>
+            <div class="cliente-logo glow-effect"><img src="img/clickmassa.png" alt="Cliente 8"></div>
         </div>
     </section>
 
-        <section id="portfolio" class="portfolio-section">
+    <section id="portfolio" class="portfolio-section">
         <div class="portfolio-header" data-aos="fade-up">
             <h2>Nosso Portfólio</h2>
             <p class="subtitulo">Conheça nossos principais eventos e montagens.</p>
@@ -235,141 +221,187 @@
         </div>
     </section>
 
-
     <section id="contato" class="contato-section">
         <div class="contato-container">
-            
             <div class="contato-info" data-aos="fade-right">
                 <h2>Pronto para realizar o seu evento?</h2>
                 <p>Transforme sua ideia em uma experiência inesquecível com a estrutura e tecnologia da OYO Solution. Nossa equipe está pronta para te atender!</p>
-                
-                <a href="https://wa.me/55084988460925?text=Olá!%20Gostaria%20de%20fazer%20um%20orçamento%20para%20o%20meu%20evento." target="_blank" class="btn-whatsapp glow-effect">
+                <a href="https://wa.me/55084988460925?text=Olá..." target="_blank" class="btn-whatsapp glow-effect">
                     Faça seu orçamento agora 📱
                 </a>
             </div>
-
             <div class="contato-feedbacks" data-aos="fade-left">
                 <h3>Avaliações no Google</h3>
-                
                 <div class="google-card glow-effect">
-                    <div class="google-header">
-                        <span class="google-nome">Adrielle Medeiros</span>
-                        <span class="google-data">há 2 semanas</span>
-                    </div>
-                    <div class="google-estrelas">★★★★★</div>
-                    <p class="google-texto">"Trabalhar com a OYO Solution é ter tranquilidade do início ao fim do evento. A equipe é extremamente profissional, organizada e atenta aos detalhes. LED, som e iluminação entregues com qualidade, pontualidade e muito cuidado. Parceria que faz diferença em eventos corporativos."</p>
+                    <p class="google-nome">Cliente Satisfeito</p>
+                    <p class="google-estrelas">★★★★★</p>
+                    <p class="google-texto">"Estrutura impecável e painéis de LED incríveis. A OYO superou as expectativas!"</p>
                 </div>
-
-                <div class="google-card glow-effect">
-                    <div class="google-header">
-                        <span class="google-nome">Triunfal Cerimonial e Eventos</span>
-                        <span class="google-data">há 1 semana</span>
-                    </div>
-                    <div class="google-estrelas">★★★★★</div>
-                    <p class="google-texto">"OYO Solution - Realmente é solução! Atendimento ímpar e a melhor resolução de painel de LED!!!."</p>
-                </div>
-                
                 <a href="https://g.page/r/Cd2TT6g2Kn6JEBM/review" target="_blank" class="btn-ver-google glow-effect">
                     Ver mais no Google <span>G</span>
                 </a>
             </div>
-
         </div>
     </section>
 
     <footer class="meu-rodape">
-  <div class="links-rodape">
-    <a href="/socio-marcos.html">Sócio Marcos</a>
-    <span class="separador">•</span>
-    <a href="/admin.html">Administração OYO</a>
-    <span class="separador">•</span>
-    <a href="/contato">Contato</a>
-  </div>
-  <div class="creditos-rodape">
-    <p>© 2026 OYO Solution. Todos os direitos reservados. Transformando eventos em espetáculos.</p>
-    <p>Produzido por Gustavo Vieira.</p>
-    <p>v4.1</p>
-  </div>
-</footer>
+        <div class="links-rodape" id="links-socios">
+            </div>
+        
+        <div class="creditos-rodape">
+            <p>© 2026 OYO Solution. Todos os direitos reservados. Transformando eventos em espetáculos.</p>
+            <p>Produzido por Gustavo Vieira.</p>
+            <p>v5.10.4</p>
+        </div>
+    </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="script.js"></script>
+    
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+        import {
+            getFirestore,
+            collection,
+            getDocs,
+            query,
+            orderBy,
+            where
+        } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
 
-   <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
-import {
-    getFirestore,
-    collection,
-    query,
-    where,
-    getDocs,
-    orderBy,
-    limit
-} from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+        const firebaseConfig = {
+            apiKey: "AIzaSyBuBNYOU6hQF5CQPMVtZ6qDjtY-cxpaeBA",
+            authDomain: "oyo-eventos.firebaseapp.com",
+            projectId: "oyo-eventos",
+            storageBucket: "oyo-eventos.firebasestorage.app",
+            messagingSenderId: "185927669696",
+            appId: "1:185927669696:web:d7f8d8f6e54cab62411a25"
+        };
 
-// Configuração do Firebase
-const firebaseConfig = {
-    apiKey: "AIzaSyBuBNYOU6hQF5CQPMVtZ6qDjtY-cxpaeBA",
-    authDomain: "oyo-eventos.firebaseapp.com",
-    projectId: "oyo-eventos",
-    storageBucket: "oyo-eventos.firebasestorage.app",
-    messagingSenderId: "185927669696",
-    appId: "1:185927669696:web:d7f8d8f6e54cab62411a25"
-};
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-// Inicializa o Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+        // 1. CARREGAR DADOS DO SÓCIO COM PREVENÇÃO DE ERROS (SAFE CHECK)
+        async function carregarDadosSocio() {
+            const params = new URLSearchParams(window.location.search);
+            const slug = params.get('slug');
 
-// Inicializa animações AOS
-AOS.init();
+            if (!slug) {
+                window.location.href = "index.html"; 
+                return;
+            }
 
-// Aguarda o carregamento da página
-document.addEventListener("DOMContentLoaded", async () => {
-    const nomeEl = document.getElementById("nome-socio");
-    const descricaoEl = document.getElementById("descricao-socio");
-    const fotoEl = document.getElementById("foto-socio");
+            try {
+                const q = query(collection(db, "socios"), where("slug", "==", slug));
+                const querySnapshot = await getDocs(q);
 
-    try {
-        // Obtém o slug da URL
-        const params = new URLSearchParams(window.location.search);
-        let slug = params.get("socio");
+                if (querySnapshot.empty) {
+                    document.getElementById('socio-nome').textContent = "Sócio não encontrado";
+                    return;
+                }
 
-        let q;
+                querySnapshot.forEach((doc) => {
+                    const dados = doc.data();
 
-        if (slug) {
-            // Busca sócio específico pelo slug
-            q = query(collection(db, "socios"), where("slug", "==", slug));
-        } else {
-            // Caso não haja slug, carrega o sócio mais recente
-            q = query(
-                collection(db, "socios"),
-                orderBy("criadoEm", "desc"),
-                limit(1)
-            );
+                    // Nome
+                    document.title = `${dados.nome || 'Sócio'} | OYO Solution`;
+                    document.getElementById('socio-nome').textContent = dados.nome || 'Sócio';
+                    
+// Foto Segura (Agora com o nome exato que está no seu banco de dados)
+const fotoEl = document.getElementById('socio-foto');
+const caixaFoto = document.querySelector('.socio-imagem-box'); 
+
+if (dados.foto && dados.foto.trim() !== "") {
+    fotoEl.src = dados.foto;
+    fotoEl.style.display = 'block'; // Mostra a imagem
+    caixaFoto.style.display = 'block'; // Mostra a caixa e o brilho
+} else {
+    // Se não tiver foto, esconde a caixa inteira
+    caixaFoto.style.display = 'none'; 
+}
+
+                    // Biografia Segura (Tenta buscar de vários possíveis nomes de campo)
+                    const textoBio = dados.biografia || dados.descricao || dados.sobre || "";
+                    const bioContainer = document.getElementById('socio-bio');
+                    
+                    if (textoBio.trim() !== "") {
+                        const bioHTML = textoBio.split('\n').map(p => `<p>${p}</p>`).join('');
+                        bioContainer.innerHTML = bioHTML;
+                    } else {
+                        bioContainer.innerHTML = "<p>Perfil em atualização.</p>";
+                    }
+
+                    // Assinatura Segura
+                    const containerAssinatura = document.getElementById('container-assinatura');
+                    if (dados.assinaturaUrl && dados.assinaturaUrl.trim() !== "") {
+                        document.getElementById('socio-assinatura').src = dados.assinaturaUrl;
+                        containerAssinatura.style.display = 'block';
+                    }
+                });
+            } catch (error) {
+                console.error("Erro ao carregar dados do sócio:", error);
+            }
         }
 
-        const snapshot = await getDocs(q);
+        // 2. CARREGAR RODAPÉ (Igual ao que já estava funcionando)
+        async function carregarSociosFooter() {
+            const container = document.getElementById("links-socios");
+            if (!container) return;
 
-        if (snapshot.empty) {
-            console.warn("Nenhum sócio encontrado no Firebase.");
-            return;
+            container.innerHTML = "";
+
+            try {
+                const q = query(collection(db, "socios"), orderBy("criadoEm", "asc"));
+                const snapshot = await getDocs(q);
+
+                let primeiro = true;
+
+                snapshot.forEach((docSnap) => {
+                    const socio = docSnap.data();
+
+                    if (!primeiro) {
+                        const separador = document.createElement("span");
+                        separador.className = "separador";
+                        separador.textContent = " • ";
+                        container.appendChild(separador);
+                    }
+
+                    const link = document.createElement("a");
+                    link.href = `socio.html?slug=${socio.slug}`;
+                    link.textContent = `Sócio ${socio.nome}`;
+                    container.appendChild(link);
+
+                    primeiro = false;
+                });
+
+                // Fixos
+                const sepAdmin = document.createElement("span");
+                sepAdmin.className = "separador";
+                sepAdmin.textContent = " • ";
+                container.appendChild(sepAdmin);
+
+                const adminLink = document.createElement("a");
+                adminLink.href = "admin.html";
+                adminLink.textContent = "Administração OYO";
+                container.appendChild(adminLink);
+
+                const sepContato = document.createElement("span");
+                sepContato.className = "separador";
+                sepContato.textContent = " • ";
+                container.appendChild(sepContato);
+
+                const contatoLink = document.createElement("a");
+                contatoLink.href = "#contato";
+                contatoLink.textContent = "Contato";
+                container.appendChild(contatoLink);
+
+            } catch (erro) {
+                console.error("Erro ao carregar sócios no rodapé:", erro);
+            }
         }
 
-        snapshot.forEach((doc) => {
-            const socio = doc.data();
-
-            if (nomeEl) nomeEl.textContent = socio.nome || "Nome do Sócio";
-            if (descricaoEl) descricaoEl.textContent = socio.descricao || "Descrição não disponível.";
-            if (fotoEl && socio.foto) fotoEl.src = socio.foto;
-
-            document.title = `Sócio ${socio.nome} - OYO Solution`;
-        });
-
-    } catch (erro) {
-        console.error("Erro ao carregar dados do sócio:", erro);
-    }
-});
-</script>
+        carregarDadosSocio();
+        carregarSociosFooter();
+    </script>
 </body>
 </html>

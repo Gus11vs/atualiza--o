@@ -1,763 +1,1295 @@
 /* ========================================================
+
    CONFIGURAÇÕES GERAIS E VARIÁVEIS
+
    ======================================================== */
+
 html {
+
     scroll-behavior: smooth;
+
     scroll-padding-top: 90px;
+
 }
+
+
 
 :root {
+
     --cor-rosa: #d645d8;
+
     --cor-azul: #4158f6;
+
     --cor-primaria: #d645d8;
+
     --cor-fundo: #000000;
+
     --cor-superficie: rgba(255, 255, 255, 0.02);
+
     --cor-borda: rgba(255, 255, 255, 0.06);
+
     --cor-texto: #f5f5f7;
+
     --cor-texto-secundario: #86868b;
+
 }
+
+
 
 * {
+
     margin: 0; padding: 0; box-sizing: border-box;
+
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
     -webkit-font-smoothing: antialiased;
+
 }
+
+
 
 body {
-    background-color: var(--cor-fundo); 
-    color: var(--cor-texto); 
+
+    background-color: var(--cor-fundo);
+
+    color: var(--cor-texto);
+
     overflow-x: hidden;
+
 }
 
+
+
 /* ========================================================
+
    CABEÇALHO (HEADER) E MENU
+
    ======================================================== */
+
 .cabecalho {
+
     display: flex; justify-content: space-between; align-items: center;
+
     padding: 15px 50px; background-color: rgba(0, 0, 0, 0.6);
+
     border-bottom: 1px solid var(--cor-borda); position: sticky; top: 0; z-index: 9999;
+
     backdrop-filter: saturate(180%) blur(25px); -webkit-backdrop-filter: saturate(180%) blur(25px);
+
 }
+
+
 
 .logo-texto { font-size: 32px; font-weight: 700; letter-spacing: 1px; color: #fff; }
+
 .logo-texto span {
+
     font-weight: 400; font-size: 16px; letter-spacing: 4px;
+
     background: linear-gradient(135deg, var(--cor-rosa), var(--cor-azul));
+
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+
 }
+
+
 
 .menu ul { list-style: none; display: flex; gap: 35px; }
+
 .menu a { color: var(--cor-texto-secundario); text-decoration: none; font-weight: 500; transition: color 0.4s ease; }
+
 .menu a:hover { color: var(--cor-texto); text-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
 
+
+
 /* ========================================================
+
    EFEITOS GLOW (CARTÕES E CURSOR DO RATO)
+
    ======================================================== */
+
 .glow-effect { position: relative; overflow: hidden; }
+
 .glow-effect::before {
+
     content: ''; position: absolute;
+
     top: var(--mouse-y, 0); left: var(--mouse-x, 0);
+
     transform: translate(-50%, -50%); width: 350px; height: 350px;
+
     background: radial-gradient(circle, rgba(214, 69, 216, 0.15) 0%, rgba(65, 88, 246, 0.1) 40%, transparent 70%);
+
     opacity: 0; transition: opacity 0.3s ease; pointer-events: none; z-index: 0;
+
 }
+
 .glow-effect:hover::before { opacity: 1; }
 
-/* Mantém os textos em cima da luz */
+
+
 .servico-conteudo, .overlay, .btn-destaque, .btn-whatsapp, .btn-portfolio-completo, .google-card { position: relative; z-index: 1; }
 
-/* Efeito da luz a seguir o rato globalmente */
+
+
 .cursor-glow {
+
     position: fixed; top: 0; left: 0;
+
     width: 300px; height: 300px;
+
     background: radial-gradient(circle, rgba(214, 69, 216, 0.12) 0%, rgba(65, 88, 246, 0.08) 40%, transparent 70%);
-    border-radius: 50%; pointer-events: none; z-index: 9997; 
+
+    border-radius: 50%; pointer-events: none; z-index: 9997;
+
     transform: translate(-1000px, -1000px); transition: opacity 0.5s ease;
+
     opacity: 0; mix-blend-mode: screen; will-change: transform;
+
 }
 
+
+
 /* ========================================================
+
    HERO SECTION (COM VÍDEO E LUZ DE FUNDO)
+
    ======================================================== */
+
 .hero {
+
     height: 90vh; display: flex; align-items: center; justify-content: center;
+
     text-align: center; padding: 0 20px; position: relative; overflow: hidden;
+
 }
+
+
 
 .bg-video {
+
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+
     object-fit: cover; z-index: -3;
+
 }
+
+
 
 .overlay-hero {
+
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+
     background: rgba(0, 0, 0, 0.75); z-index: -2;
+
 }
+
+
 
 .luz-marca-fundo {
+
     position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+
     width: 70vw; height: 70vw;
+
     background: radial-gradient(circle, rgba(214, 69, 216, 0.3) 0%, rgba(65, 88, 246, 0.2) 40%, transparent 70%);
+
     filter: blur(80px); z-index: -1; pointer-events: none;
+
 }
+
+
 
 .hero-conteudo h2 { font-size: 4.5rem; font-weight: 800; letter-spacing: -2px; margin-bottom: 25px; color: #fff; text-shadow: 0 0 30px rgba(214, 69, 216, 0.4); }
+
 .hero-conteudo p { font-size: 1.4rem; margin-bottom: 50px; color: #e0e0e0; max-width: 650px; margin: 0 auto 50px auto; }
+
 .btn-destaque {
+
     padding: 18px 50px; background: var(--cor-texto); color: var(--cor-fundo); text-decoration: none;
+
     font-weight: 600; border-radius: 980px; font-size: 1.15rem; transition: all 0.4s ease; display: inline-block;
+
 }
+
 .btn-destaque:hover { transform: translateY(-3px) scale(1.02); background: #ffffff; }
 
+
+
 /* ========================================================
-   SECÇÃO SÓCIO (APRESENTAÇÃO)
+
+   SECÇÃO SÓCIO (APRESENTAÇÃO) - UNIFICADA E CORRIGIDA
+
    ======================================================== */
-.socio-section { padding: 140px 5%; background: linear-gradient(180deg, var(--cor-fundo) 0%, rgba(214, 69, 216, 0.05) 100%); }
-.socio-container { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; gap: 80px; }
-.socio-imagem-box { position: relative; width: 100%; max-width: 550px; }
-.glow-socio { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 120%; height: 120%; background: radial-gradient(circle, rgba(214, 69, 216, 0.25) 0%, rgba(65, 88, 246, 0.15) 40%, transparent 70%); filter: blur(50px); z-index: 0; }
-.foto-socio { position: relative; z-index: 1; width: 100%; border-radius: 35px; border: 1px solid var(--cor-borda); box-shadow: 0 30px 60px rgba(0,0,0,0.6); }
 
-.socio-texto { flex: 1; }
-.tag-socio { display: inline-block; padding: 8px 18px; border-radius: 50px; background: rgba(214, 69, 216, 0.1); color: var(--cor-rosa); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; border: 1px solid rgba(214, 69, 216, 0.3); }
-.socio-texto h2 { font-size: 3rem; font-weight: 700; margin-bottom: 25px; color: #fff; }
-.socio-texto h2 span { background: linear-gradient(135deg, var(--cor-rosa), var(--cor-azul)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.socio-texto p { font-size: 1.15rem; color: var(--cor-texto-secundario); margin-bottom: 20px; line-height: 1.7; }
-.socio-assinatura { width: 100%; max-width: 200px; margin-top: 30px; }
+.socio-section {
+
+    padding: 120px 5%;
+
+    background-color: #000000;
+
+    color: #ffffff;
+
+    display: flex;
+
+    justify-content: center;
+
+    overflow: hidden;
+
+}
+
+
+
+.socio-container {
+
+    display: flex;
+
+    flex-direction: row;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    max-width: 1200px;
+
+    width: 100%;
+
+    margin: 0 auto;
+
+    gap: 60px;
+
+}
+
+
+
+.socio-imagem-box {
+
+    position: relative;
+
+    flex: 0 0 400px; /* Trava a largura da caixa em 400px exatos */
+
+    width: 400px;
+
+}
+
+
+
+.foto-socio {
+
+    position: relative;
+
+    z-index: 1;
+
+    width: 100%;
+
+    height: 500px; /* Trava a altura para formato de retrato (Instagram) */
+
+    object-fit: cover;
+
+    border-radius: 35px;
+
+    border: 1px solid var(--cor-borda);
+
+    box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+
+}    
+
+
+
+.glow-socio {
+
+    position: absolute;
+
+    top: 50%;
+
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 110%;
+
+    height: 110%;
+
+    background: radial-gradient(circle, rgba(214,69,216,0.15) 0%, transparent 70%);
+
+    z-index: -1;
+
+}
+
+
+
+.socio-texto {
+
+    flex: 1; /* Estica o texto para ocupar todo o resto da tela, diminuindo a altura */
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+}
+
+
+
+.tag-socio {
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+
+    color: #d645d8;
+
+    font-weight: 600;
+
+    margin-bottom: 20px;
+
+    border: 1px solid rgba(214,69,216,0.5);
+
+    padding: 6px 16px;
+
+    border-radius: 50px;
+
+    display: inline-block;
+
+    background: rgba(214, 69, 216, 0.1);
+
+}
+
+
+
+.socio-texto h2 {
+
+    font-size: 3.5rem;
+
+    font-weight: 700;
+
+    margin-bottom: 30px;
+
+    line-height: 1.1;
+
+    font-family: 'SF Pro Display', sans-serif;
+
+}
+
+
+
+.socio-texto h2 span {
+
+    color: #d645d8;
+
+}
+
+
+
+#descricao-socio, .socio-texto p {
+
+    font-size: 1.15rem;
+
+    line-height: 1.8;
+
+    color: #a1a1a6;
+
+    text-align: left;
+
+    margin-bottom: 20px;
+
+}
+
+
+
+.socio-assinatura {
+
+    width: 100%;
+
+    max-width: 200px;
+
+    margin-top: 20px;
+
+    opacity: 0.8;
+
+}
+
+
+
+/* Responsividade da Seção Sócio */
+
+@media (max-width: 992px) {
+
+    .socio-container {
+
+        flex-direction: column;
+
+        align-items: center;
+
+        gap: 50px;
+
+        text-align: center;
+
+    }
+
+   
+
+    .socio-imagem-box {
+
+        flex: auto;
+
+        width: 100%;
+
+        max-width: 400px;
+
+    }
+
+   
+
+    .socio-texto {
+
+        align-items: center;
+
+    }
+
+   
+
+    #descricao-socio, .socio-texto p {
+
+        text-align: center;
+
+    }
+
+
+
+    .socio-texto h2 {
+
+        font-size: 2.5rem;
+
+    }
+
+}
+
+
 
 /* ========================================================
+
    SOBRE NÓS
+
    ======================================================== */
+
 .sobre-nos { padding: 140px 5%; background: var(--cor-fundo); }
+
 .sobre-container { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; gap: 80px; }
+
 .sobre-texto h2 { font-size: 3.2rem; font-weight: 700; margin-bottom: 30px; background: linear-gradient(135deg, var(--cor-rosa), var(--cor-azul)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
 .sobre-texto p { font-size: 1.2rem; color: var(--cor-texto-secundario); line-height: 1.7; margin-bottom: 25px; }
+
 .sobre-diferenciais li { font-size: 1.15rem; color: var(--cor-texto); margin-bottom: 18px; font-weight: 500; }
+
 .sobre-imagem img { width: 100%; max-width: 500px; border-radius: 40px; border: 1px solid var(--cor-borda); box-shadow: 0 40px 80px rgba(0,0,0,0.8); }
 
+
+
 /* ========================================================
+
    SERVIÇOS
+
    ======================================================== */
+
 .servicos-section { padding: 140px 5%; background: linear-gradient(180deg, #050505 0%, #000000 100%); }
+
 .servicos-header { text-align: center; margin-bottom: 80px; }
+
 .servicos-header h2 { font-size: 3.2rem; font-weight: 700; margin-bottom: 20px; }
+
 .servicos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; max-width: 1200px; margin: 0 auto; }
+
 .servico-card {
+
     display: flex; flex-direction: column; align-items: center; text-align: left;
+
     background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+
     padding: 45px 30px; border-radius: 30px; border: 1px solid var(--cor-borda); height: 100%; transition: all 0.5s ease;
+
 }
+
 /* ========================================================
+
 SERVIÇOS (CORREÇÃO DA ANIMAÇÃO DO BALÃO)
+
    ======================================================== */
+
 .servico-card {
+
     display: flex; flex-direction: column; align-items: center; text-align: left;
+
     background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
-    padding: 45px 30px; border-radius: 30px; border: 1px solid var(--cor-borda); 
+
+    padding: 45px 30px; border-radius: 30px; border: 1px solid var(--cor-borda);
+
     height: 100%; transition: all 0.5s ease;
+
 }
 
-/* O !important garante que a animação funcione mesmo com o AOS ativo */
-.servico-card:hover { 
-    transform: translateY(-12px) !important; 
-    border-color: rgba(255, 255, 255, 0.15); 
-    box-shadow: 0 20px 40px rgba(0,0,0,0.6); 
+
+
+.servico-card:hover {
+
+    transform: translateY(-12px) !important;
+
+    border-color: rgba(255, 255, 255, 0.15);
+
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+
 }
 
-/* Garante que o ícone, o título e o texto fiquem acima do brilho do mouse */
+
+
 .servico-card > * {
+
     position: relative;
+
     z-index: 1;
+
 }
 
+
+
 .servico-icone { font-size: 2.8rem; margin-bottom: 25px; filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2)); }
+
 .servico-card h3 { font-size: 1.4rem; margin-bottom: 15px; font-weight: 600; text-align: center; }
+
 .servico-card p { color: var(--cor-texto-secundario); font-size: 1.05rem; text-align: center; }
+
 .servico-icone { font-size: 2.8rem; margin-bottom: 25px; filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2)); }
+
 .servico-card h3 { font-size: 1.4rem; margin-bottom: 15px; font-weight: 600; text-align: center; }
+
 .servico-card p { color: var(--cor-texto-secundario); font-size: 1.05rem; text-align: center; }
+
+
 
 /* ========================================================
+
 PORTFÓLIO (COM EFEITO DE DESLIZE)
+
    ======================================================== */
+
 .portfolio-section { padding: 140px 5%; background-color: var(--cor-fundo); text-align: center; }
+
 .portfolio-header p { margin-bottom: 10px; color: var(--cor-texto-secundario); }
+
 .portfolio-grid { display: grid; gap: 30px; max-width: 1200px; margin: 0 auto 80px auto; grid-template-columns: repeat(2, 1fr); }
 
+
+
 .portfolio-item { position: relative; border-radius: 28px; overflow: hidden; display: block; aspect-ratio: 16/9; border: 1px solid var(--cor-borda); }
+
 .portfolio-item img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(20%) brightness(0.9); transition: all 0.6s ease; }
+
 .portfolio-item:hover img { transform: scale(1.1); filter: grayscale(0%) brightness(1); }
 
-.overlay { 
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-    background: rgba(0, 0, 0, 0.65); backdrop-filter: blur(5px); 
-    display: flex; justify-content: center; align-items: center; 
-    opacity: 0; transition: all 0.4s ease; 
+
+
+.overlay {
+
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+
+    background: rgba(0, 0, 0, 0.65); backdrop-filter: blur(5px);
+
+    display: flex; justify-content: center; align-items: center;
+
+    opacity: 0; transition: all 0.4s ease;
+
 }
+
 .portfolio-item:hover .overlay { opacity: 1; }
 
+
+
 .overlay h3 {
+
     color: #ffffff; font-size: 1.8rem; font-weight: 700; letter-spacing: 2px; text-align: center;
+
     transform: translateY(30px); transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+
 }
+
 .portfolio-item:hover .overlay h3 { transform: translateY(0); }
+
+
 
 .btn-portfolio-completo { display: inline-flex; padding: 18px 40px; background-color: var(--cor-superficie); color: var(--cor-texto); text-decoration: none; font-weight: 600; border-radius: 980px; border: 1px solid var(--cor-borda); transition: all 0.4s ease; }
 
+
+
 /* ========================================================
+
    CONTATO E AVALIAÇÕES GOOGLE
+
    ======================================================== */
+
 .contato-section { padding: 120px 5%; background: linear-gradient(180deg, #000000 0%, #050505 100%); border-top: 1px solid var(--cor-borda); }
+
 .contato-container { display: flex; justify-content: space-between; align-items: flex-start; max-width: 1100px; margin: 0 auto; gap: 60px; }
+
 .contato-info h2 { font-size: 2.8rem; margin-bottom: 20px; }
+
 .contato-info p { font-size: 1.2rem; color: var(--cor-texto-secundario); margin-bottom: 30px; line-height: 1.6; }
+
 .btn-whatsapp { display: inline-block; padding: 20px 45px; background: linear-gradient(135deg, #25D366, #128C7E); color: #fff; text-decoration: none; font-weight: 600; border-radius: 980px; margin-top: 20px; }
 
+
+
 .contato-feedbacks h3 { margin-bottom: 20px; font-size: 1.5rem; }
+
 .google-card { background: rgba(255,255,255,0.03); padding: 25px; border-radius: 24px; border: 1px solid var(--cor-borda); margin-bottom: 20px; }
+
 .google-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+
 .google-nome { font-weight: 600; color: #fff; }
+
 .google-data { font-size: 0.85rem; color: var(--cor-texto-secundario); }
+
 .google-estrelas { color: #FFD700; margin-bottom: 15px; letter-spacing: 2px; }
+
 .google-texto { font-style: italic; color: #ccc; line-height: 1.5; font-size: 0.95rem; }
+
+
 
 .btn-ver-google { display: inline-flex; gap: 10px; padding: 14px 25px; background-color: var(--cor-superficie); color: var(--cor-texto); text-decoration: none; border-radius: 980px; border: 1px solid var(--cor-borda); margin-top: 10px; }
 
+
+
 /* ========================================================
+
    RODAPÉ E MENU HAMBURGUER
+
    ======================================================== */
+
 .rodape { text-align: center; padding: 50px 20px; background-color: #000; color: #666; font-size: 0.95rem; border-top: 1px solid var(--cor-borda); }
+
 .rodape p { margin-bottom: 5px; }
+
+
 
 .menu-hamburguer { display: none; }
 
+
+
 /* ========================================================
+
    PÁGINA: TODOS OS EVENTOS (PORTFÓLIO COMPLETO)
+
    ======================================================== */
+
 .loader-content { text-align: center; display: flex; flex-direction: column; align-items: center; }
+
 .logo-animada { font-size: 2.2rem; font-weight: 700; color: #fff; margin-bottom: 25px; letter-spacing: 2px; animation: pulsarText 1.5s infinite alternate; }
+
 .logo-animada span { font-weight: 300; letter-spacing: 4px; background: linear-gradient(135deg, var(--cor-rosa), var(--cor-azul)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
 .barra-carregamento { width: 250px; height: 4px; background: rgba(255, 255, 255, 0.1); border-radius: 10px; overflow: hidden; }
+
 .progresso { height: 100%; width: 0%; background: linear-gradient(90deg, var(--cor-rosa), var(--cor-azul)); box-shadow: 0 0 10px var(--cor-rosa); animation: carregarBarra 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
 
+
+
 @keyframes carregarBarra { 0% { width: 0%; } 50% { width: 60%; } 100% { width: 100%; } }
+
 @keyframes pulsarText { from { opacity: 0.7; } to { opacity: 1; text-shadow: 0 0 15px rgba(214, 69, 216, 0.3); } }
 
+
+
 .hero-interna { padding: 160px 5% 80px; text-align: center; background: linear-gradient(180deg, rgba(214, 69, 216, 0.05) 0%, var(--cor-fundo) 100%); position: relative; }
+
 .hero-interna h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 15px; color: #fff; text-shadow: 0 0 30px rgba(255, 255, 255, 0.1); }
+
 .hero-interna p { font-size: 1.2rem; color: var(--cor-texto-secundario); max-width: 600px; margin: 0 auto; }
+
+
 
 .galeria-grid-completa { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; max-width: 1300px; margin: 0 auto 60px auto; padding: 0 5%; }
 
+
+
 .btn-voltar { display: inline-flex; align-items: center; padding: 16px 35px; background-color: var(--cor-superficie); color: var(--cor-texto); text-decoration: none; border-radius: 980px; border: 1px solid var(--cor-borda); font-weight: 600; font-size: 1.05rem; transition: all 0.4s ease; backdrop-filter: blur(10px); }
+
 .btn-voltar:hover { background-color: rgba(255, 255, 255, 0.08); transform: translateX(-8px); box-shadow: 0 10px 20px rgba(0,0,0,0.4); border-color: rgba(255, 255, 255, 0.2); }
 
+
+
 .animar-scroll { opacity: 0; animation: fadeUpIn 1s cubic-bezier(0.25, 1, 0.5, 1) 0.5s forwards; }
+
 @keyframes fadeUpIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
+
+
 /* ========================================================
+
    RESPONSIVIDADE (TABLET E TELEMÓVEL)
+
    ======================================================== */
-@media (max-width: 1100px) { 
-    .servicos-grid { grid-template-columns: repeat(2, 1fr); } 
+
+@media (max-width: 1100px) {
+
+    .servicos-grid { grid-template-columns: repeat(2, 1fr); }
+
 }
 
+
+
 @media (max-width: 768px) {
+
     .cabecalho { padding: 15px 20px; }
-    
-    .cursor-glow { display: none !important; } /* Desativa o brilho global no telemóvel para não travar */
-    
+
+   
+
+    .cursor-glow { display: none !important; }
+
+   
+
     .menu-hamburguer { display: flex; flex-direction: column; gap: 6px; cursor: pointer; z-index: 10000; }
+
     .menu-hamburguer .linha { width: 28px; height: 3px; background-color: #fff; transition: all 0.3s ease; border-radius: 3px; }
-    
+
+   
+
     .menu { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: rgba(0,0,0,0.95); padding: 20px; flex-direction: column; align-items: center; border-bottom: 1px solid var(--cor-borda); }
+
     .menu.ativo { display: flex; }
+
     .menu ul { flex-direction: column; gap: 20px; text-align: center; }
-    
+
+   
+
     .hero-conteudo h2 { font-size: 3rem; }
+
     .hero-interna h1 { font-size: 2.8rem; }
-    
-    .socio-container, .sobre-container, .contato-container { flex-direction: column; gap: 50px; text-align: center; }
-    .socio-imagem-box, .sobre-imagem img { max-width: 100%; }
-    
+
+   
+
+    /* Retirei as classes "socio-" daqui para evitar conflito, elas já estão tratadas na própria seção */
+
+    .sobre-container, .contato-container { flex-direction: column; gap: 50px; text-align: center; }
+
+    .sobre-imagem img { max-width: 100%; }
+
+   
+
     .servicos-grid, .portfolio-grid, .galeria-grid-completa { grid-template-columns: 1fr; gap: 20px; }
+
 }
+
+
+
 /* ========================================================
+
    SEÇÃO DE CLIENTES (MARCAS)
+
    ======================================================== */
+
 .clientes-section {
+
     padding: 100px 5%;
+
     background-color: var(--cor-fundo);
+
     text-align: center;
+
     position: relative;
+
     z-index: 10;
+
 }
+
+
 
 .clientes-header {
+
     margin-bottom: 50px;
+
 }
+
+
 
 .clientes-header h2 {
+
     font-size: 2.8rem;
+
     font-weight: 800;
+
     margin-bottom: 15px;
+
     background: linear-gradient(135deg, #fff, #bbb);
+
     -webkit-background-clip: text;
+
     -webkit-text-fill-color: transparent;
+
 }
+
+
 
 .clientes-header p {
+
     color: var(--cor-texto-secundario);
+
     font-size: 1.2rem;
+
 }
 
-/* Grade baseada na imagem enviada */
+
+
 .clientes-grid {
+
     display: grid;
+
     grid-template-columns: repeat(4, 1fr);
+
     gap: 20px;
+
     max-width: 1200px;
+
     margin: 0 auto;
+
 }
 
-/* Caixas dos Logos (Estilo Premium) */
+
+
 .cliente-logo {
-    background-color: var(--cor-superficie); /* Fundo preto ligeiramente mais claro */
+
+    background-color: var(--cor-superficie);
+
     border: 1px solid var(--cor-borda);
+
     border-radius: 16px;
+
     padding: 40px 20px;
+
     display: flex;
+
     justify-content: center;
+
     align-items: center;
+
     transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-    
-    /* Deixa as marcas em tom de cinza e levemente transparentes por padrão */
+
     filter: grayscale(100%) opacity(60%);
+
     cursor: pointer;
+
 }
+
+
 
 .cliente-logo img {
+
     max-width: 80%;
-    max-height: 60px; /* Mantém todas as marcas com proporções parecidas */
+
+    max-height: 60px;
+
     object-fit: contain;
+
 }
 
-/* Efeito de Hover: Acende a marca, ganha cor e borda neon */
+
+
 .cliente-logo:hover {
+
     filter: grayscale(0%) opacity(100%);
+
     transform: translateY(-5px);
-    border-color: rgba(214, 69, 216, 0.4); /* Usa o tom rosa da sua paleta na borda */
-    box-shadow: 0 10px 30px rgba(214, 69, 216, 0.1); /* Brilho neon leve */
+
+    border-color: rgba(214, 69, 216, 0.4);
+
+    box-shadow: 0 10px 30px rgba(214, 69, 216, 0.1);
+
 }
 
-/* ========================================================
-   RESPONSIVIDADE (TABLET E CELULAR)
-   ======================================================== */
+
+
 @media (max-width: 900px) {
+
     .clientes-grid {
+
         grid-template-columns: repeat(3, 1fr);
+
     }
+
 }
+
+
 
 @media (max-width: 600px) {
+
     .clientes-header h2 { font-size: 2.2rem; }
-    
+
+   
+
     .clientes-grid {
+
         grid-template-columns: repeat(2, 1fr);
+
         gap: 12px;
+
     }
-    
+
+   
+
     .cliente-logo {
+
         padding: 30px 15px;
+
     }
-    
+
+   
+
     .cliente-logo img {
+
         max-height: 45px;
+
     }
+
 }
+
+
+
 .meu-rodape {
-  background-color: #000000; /* Fundo preto */
-  color: #888888; /* Cor do texto cinza, similar ao seu print */
+
+  background-color: #000000;
+
+  color: #888888;
+
   text-align: center;
+
   padding: 20px 0;
+
   font-family: sans-serif;
+
   font-size: 14px;
+
 }
+
+
 
 .links-rodape {
-  margin-bottom: 15px; /* Dá um espaço entre os links e os créditos */
+
+  margin-bottom: 15px;
+
 }
+
+
 
 .links-rodape a {
-  color: #bbbbbb; /* Deixa o link um pouco mais claro que o texto normal */
-  text-decoration: none; /* Tira o sublinhado */
+
+  color: #bbbbbb;
+
+  text-decoration: none;
+
   transition: color 0.3s ease;
+
 }
+
+
 
 .links-rodape a:hover {
-  color: #ffffff; /* Fica branco quando passa o mouse por cima */
+
+  color: #ffffff;
+
 }
+
+
 
 .separador {
+
   margin: 0 10px;
+
   color: #555555;
+
 }
+
+
 
 .creditos-rodape p {
-  margin: 5px 0; /* Controla o espaço entre as linhas de texto */
-}
-/* ===== SEÇÃO DO SÓCIO ===== */
-.socio-section {
-    padding: 120px 10%;
-    background: linear-gradient(180deg, #050505, #0a0a0a);
+
+  margin: 5px 0;
+
 }
 
-.socio-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 60px;
-    flex-wrap: wrap;
-}
 
-.socio-imagem-box {
-    position: relative;
-    width: 320px;
-    height: 320px;
-    border-radius: 20px;
-    overflow: hidden;
-    backdrop-filter: blur(10px);
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 0 30px rgba(214, 69, 216, 0.2);
-}
 
-.foto-socio {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.glow-socio {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at center,
-        rgba(214, 69, 216, 0.3),
-        transparent 70%);
-    z-index: 0;
-}
-
-.socio-texto {
-    max-width: 600px;
-}
-
-.tag-socio {
-    display: inline-block;
-    margin-bottom: 10px;
-    padding: 5px 15px;
-    font-size: 0.8rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    border-radius: 20px;
-    background: rgba(214, 69, 216, 0.1);
-    color: #d645d8;
-}
-
-.socio-texto h2 {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-}
-
-.socio-texto h2 span {
-    color: #d645d8;
-}
-
-.socio-texto p {
-    color: #ccc;
-    line-height: 1.8;
-    margin-bottom: 15px;
-}
-
-.socio-assinatura {
-    margin-top: 20px;
-    opacity: 0.8;
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-    .socio-container {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .socio-texto h2 {
-        font-size: 2rem;
-    }
-
-    .socio-imagem-box {
-        width: 250px;
-        height: 250px;
-    }
-}
-/* --- ESTILIZAÇÃO PREMIUM SEÇÃO SÓCIO --- */
-.socio-section {
-    padding: 120px 5%;
-    background: radial-gradient(circle at 20% 50%, rgba(214, 69, 216, 0.05) 0%, transparent 50%);
-    overflow: hidden;
-}
-
-.socio-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 80px;
-}
-
-/* Moldura da Imagem Estilo Apple */
-.socio-imagem-box {
-    position: relative;
-    flex-shrink: 0;
-    width: 420px;
-    height: 520px;
-}
-
-.foto-socio {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 40px; /* Bordas arredondadas Apple */
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
-    position: relative;
-    z-index: 2;
-    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-/* Efeito de brilho atrás da foto */
-.glow-socio {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 110%;
-    height: 110%;
-    background: linear-gradient(135deg, var(--cor-rosa), #4158f6);
-    filter: blur(50px);
-    opacity: 0.15;
-    z-index: 1;
-}
-
-.socio-imagem-box:hover .foto-socio {
-    transform: scale(1.03) translateY(-10px);
-    border-color: rgba(214, 69, 216, 0.4);
-}
-
-/* Textos e Tags */
-.tag-socio {
-    display: inline-block;
-    padding: 6px 16px;
-    background: rgba(214, 69, 216, 0.1);
-    border: 1px solid var(--cor-rosa);
-    border-radius: 50px;
-    color: var(--cor-rosa);
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 25px;
-}
-
-.socio-texto h2 {
-    font-size: 3.5rem;
-    line-height: 1.1;
-    margin-bottom: 30px;
-    font-weight: 800;
-}
-
-.socio-texto h2 span {
-    background: linear-gradient(135deg, #fff 30%, var(--cor-rosa) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-#descricao-socio {
-    font-size: 1.15rem;
-    line-height: 1.8;
-    color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 40px;
-    max-width: 500px;
-}
-
-/* Responsividade */
-@media (max-width: 968px) {
-    .socio-container {
-        flex-direction: column;
-        text-align: center;
-        gap: 40px;
-    }
-    .socio-imagem-box {
-        width: 300px;
-        height: 380px;
-    }
-    .socio-texto h2 {
-        font-size: 2.5rem;
-    }
-    #descricao-socio {
-        margin: 0 auto 30px;
-    }
-}
-.socio-texto h2 span {
-    background: linear-gradient(135deg, #ffffff 20%, var(--cor-rosa) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    display: inline-block; /* Garante que o gradiente pegue a linha toda */
-}
 /* ==============================================================
+
    SEÇÃO SOBRE - EFEITO REVEAL (LANTERNA)
+
 ============================================================== */
+
 .sobre-nos-reveal {
+
     position: relative;
+
     padding: 150px 5%;
-    background-color: #000000; /* Fundo totalmente escuro */
+
+    background-color: #000000;
+
     color: #ffffff;
+
     overflow: hidden;
+
     display: flex;
+
     justify-content: center;
+
     align-items: center;
+
     text-align: center;
+
 }
 
-/* A Mágica da Lanterna */
+
+
 .reveal-layer {
+
     position: absolute;
+
     top: 0;
+
     left: 0;
+
     width: 100%;
+
     height: 100%;
+
     display: flex;
+
     justify-content: center;
+
     align-items: center;
-    pointer-events: none; /* Deixa o usuário clicar no texto através da imagem */
+
+    pointer-events: none;
+
     z-index: 1;
-    
-    /* Cria a máscara circular transparente */
+
+   
+
     -webkit-mask-image: radial-gradient(
-        circle 250px at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-        black 0%, 
+
+        circle 250px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+
+        black 0%,
+
         transparent 100%
+
     );
+
     mask-image: radial-gradient(
-        circle 250px at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-        black 0%, 
+
+        circle 250px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+
+        black 0%,
+
         transparent 100%
+
     );
-    
-    opacity: 0; /* Começa invisível */
+
+   
+
+    opacity: 0;
+
     transition: opacity 0.5s ease;
+
 }
 
-/* Aparece suavemente quando o mouse entra na seção */
+
+
 .sobre-nos-reveal:hover .reveal-layer {
-    opacity: 0.8; 
+
+    opacity: 0.8;
+
 }
 
-/* A Logo Gigante no fundo (Ajustada) */
-/* A Logo GIGANTE no fundo */
+
+
 .logo-background-secreta {
-    width: 1000px; /* Aqui está o segredo: tamanho base bem maior */
-    max-width: 95vw; /* Garante que no celular ela não passe de 95% da tela */
+
+    width: 1000px;
+
+    max-width: 95vw;
+
     height: auto;
+
     object-fit: contain;
-    
-    opacity: 0.15; 
-    mix-blend-mode: screen; /* Continua removendo o fundo preto mágico */
+
+    opacity: 0.15;
+
+    mix-blend-mode: screen;
+
 }
 
-/* --- ESTILOS DO TEXTO --- */
+
+
 .sobre-texto-central {
+
     position: relative;
-    z-index: 2; /* Fica acima da logo */
+
+    z-index: 2;
+
     max-width: 800px;
-    pointer-events: auto; /* Garante que o texto seja selecionável */
+
+    pointer-events: auto;
+
 }
+
+
 
 .sobre-texto-central .tag-section {
+
     font-size: 12px;
+
     letter-spacing: 4px;
+
     text-transform: uppercase;
+
     color: #d645d8;
+
     font-weight: 600;
+
     margin-bottom: 20px;
+
     display: inline-block;
+
 }
+
+
 
 .titulo-apple {
+
     font-size: 4rem;
+
     font-weight: 700;
+
     line-height: 1.1;
+
     margin-bottom: 30px;
+
     font-family: 'SF Pro Display', sans-serif;
+
 }
+
+
 
 .gradient-text {
+
     background: linear-gradient(90deg, #d645d8, #4158f6);
+
     -webkit-background-clip: text;
+
     -webkit-text-fill-color: transparent;
+
 }
+
+
 
 .p-destaque {
+
     font-size: 1.25rem;
+
     color: #f5f5f7;
+
     line-height: 1.6;
+
     margin-bottom: 20px;
+
 }
+
+
 
 .p-secundario {
+
     font-size: 1rem;
+
     color: #a1a1a6;
+
     line-height: 1.6;
+
     margin-bottom: 40px;
+
 }
+
+
 
 .sobre-diferenciais-inline {
+
     list-style: none;
+
     padding: 0;
+
     display: flex;
+
     justify-content: center;
+
     gap: 30px;
+
     flex-wrap: wrap;
+
 }
+
+
 
 .sobre-diferenciais-inline li {
+
     font-size: 1.1rem;
+
     font-weight: 500;
+
     color: #e8e8ed;
+
 }
 
-/* --- RESPONSIVIDADE CELULAR --- */
+
+
 @media (max-width: 768px) {
-    .titulo-apple { 
-        font-size: 2.5rem; 
-    }
-    
-    .sobre-diferenciais-inline { 
-        flex-direction: column; 
-        gap: 15px; 
-    }
-    
-    /* 1. Desliga o efeito de lanterna no celular e deixa a camada visível */
-    .reveal-layer {
-        opacity: 1 !important; /* Mantém sempre ligada */
-        -webkit-mask-image: none !important; /* Remove o círculo mágico */
-        mask-image: none !important;
+
+    .titulo-apple {
+
+        font-size: 2.5rem;
+
     }
 
-    /* 2. Ajusta o tamanho da logo e coloca a "luz fraca fixa" */
-    .logo-background-secreta { 
-        width: 120%; /* Deixa ela um pouco maior que a tela para dar um efeito legal */
-        max-width: 450px;
-        opacity: 0.05 !important; /* 5% de visibilidade: uma luz muuuito fraca e elegante */
+   
+
+    .sobre-diferenciais-inline {
+
+        flex-direction: column;
+
+        gap: 15px;
+
     }
+
+   
+
+    .reveal-layer {
+
+        opacity: 1 !important;
+
+        -webkit-mask-image: none !important;
+
+        mask-image: none !important;
+
+    }
+
+
+
+    .logo-background-secreta {
+
+        width: 120%;
+
+        max-width: 450px;
+
+        opacity: 0.05 !important;
+
+    }
+
 }
