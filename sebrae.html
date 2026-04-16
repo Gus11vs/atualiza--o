@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carnatal 2025 - OYO Solution</title>
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="img/oyo-logo.png">
+
+    <style>
+        /* ========================================================
+           PRELOADER MANTIDO
+           ======================================================== */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #000000; z-index: 99999;
+            display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        #oyo-draw { width: 400px; max-width: 90vw; height: auto; }
+        .draw-text-oyo {
+            font-size: 75px; font-family: 'SF Pro Display', sans-serif; font-weight: 800;
+            fill: transparent; stroke: #d645d8; stroke-width: 2px;
+            stroke-dasharray: 800; stroke-dashoffset: 800;
+            animation: drawLine 2s ease forwards, fillTextNeon 1s ease 1.8s forwards;
+        }
+        .draw-text-solutions {
+            font-size: 20px; font-family: 'SF Pro Display', sans-serif; font-weight: 300; letter-spacing: 12px;
+            fill: transparent; stroke: #ffffff; stroke-width: 1px;
+            stroke-dasharray: 500; stroke-dashoffset: 500;
+            animation: drawLine 2s ease 0.5s forwards, fillTextWhite 1s ease 2.2s forwards;
+        }
+        @keyframes drawLine { to { stroke-dashoffset: 0; } }
+        @keyframes fillTextNeon { to { fill: url(#neon-grad); stroke-width: 0; } }
+        @keyframes fillTextWhite { to { fill: #ffffff; stroke-width: 0; } }
+        body.loaded #preloader { opacity: 0; visibility: hidden; pointer-events: none; }
+
+        /* ========================================================
+           ESTILOS ESPECÍFICOS DO EVENTO (DETALHES)
+           ======================================================== */
+        .evento-header {
+            padding: 180px 5% 60px 5%;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .evento-header h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--cor-rosa), var(--cor-azul));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .evento-descricao {
+            font-size: 1.3rem;
+            color: var(--cor-texto-secundario);
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+        .evento-info-tags {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .evento-tag {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--cor-borda);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            color: #fff;
+        }
+
+        /* ========================================================
+           ESTILO APPLE: GALERIA DE FOTOS ASSIMÉTRICA
+           ======================================================== */
+        .galeria-apple {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: 350px;
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto 100px auto;
+            padding: 0 5%;
+        }
+
+        .foto-apple {
+            position: relative;
+            border-radius: 32px; /* Canto bem arredondado estilo Apple */
+            overflow: hidden;
+            background-color: #111;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease;
+            cursor: pointer;
+        }
+
+        .foto-apple img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* Efeito de Hover Premium */
+        .foto-apple:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 50px rgba(214, 69, 216, 0.15); /* Sombra neon suave */
+        }
+        .foto-apple:hover img {
+            transform: scale(1.08); /* Zoom fluido na imagem */
+        }
+
+        /* Layout Misto: A primeira imagem fica gigante (Destaque) */
+        .galeria-apple .foto-apple:nth-child(1) {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+        
+        /* Layout Responsivo para Celular */
+        @media (max-width: 768px) {
+            .evento-header h1 { font-size: 2.8rem; }
+            .galeria-apple {
+                grid-template-columns: 1fr;
+                grid-auto-rows: 300px;
+                gap: 16px;
+            }
+            .galeria-apple .foto-apple { border-radius: 24px; }
+            .galeria-apple .foto-apple:nth-child(1) {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="preloader">
+        <svg id="oyo-draw" viewBox="0 0 500 150">
+            <defs>
+                <linearGradient id="neon-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:#d645d8; stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#4158f6; stop-opacity:1" />
+                </linearGradient>
+            </defs>
+            <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" class="draw-text-oyo">OYO</text>
+            <text x="52%" y="90%" dominant-baseline="middle" text-anchor="middle" class="draw-text-solutions">SOLUTIONS</text>
+        </svg>
+    </div>
+
+    <header class="cabecalho">
+        <div class="logo-container">
+            <h1 class="logo-texto">OYO <span>SOLUTION</span></h1>
+        </div>
+        <div class="menu-hamburguer" id="menu-hamburguer">
+            <span class="linha"></span><span class="linha"></span><span class="linha"></span>
+        </div>
+        <nav class="menu" id="menu">
+            <ul>
+                <li><a href="index.html#inicio">Início</a></li>
+                <li><a href="index.html#sobre">Sobre Nós</a></li>
+                <li><a href="index.html#servicos">Serviços</a></li>
+                <li><a href="index.html#portfolio">Portfólio</a></li>
+                <li><a href="index.html#contato">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="evento-header" data-aos="fade-up">
+            <h1>Arena Sebrae</h1>
+            <p class="evento-descricao">
+                A Arena SEBRAE se consolidou como um dos pontos mais visitados da ExpoEduc 2025. Com uma programação diversa, o espaço recebeu especialistas de diversas áreas, proporcionando uma experiência educativa rica e conectada com as tendências do mercado educacional moderno.
+            </p>
+            <div class="evento-info-tags">
+                <span class="evento-tag glow-effect">📅 Dezembro de 2025</span>
+                <span class="evento-tag glow-effect">📍 Natal, RN</span>
+                <span class="evento-tag glow-effect">📺 Painel de LED & Estrutura</span>
+            </div>
+        </section>
+
+        <section class="galeria-apple">
+            <div class="foto-apple" data-aos="fade-up" data-aos-delay="200">
+                <img src="img/arena foto 2.png" alt="Detalhe do Painel de LED">
+            </div>
+            
+            <div class="foto-apple" data-aos="fade-up" data-aos-delay="300">
+                <img src="img/arena foto 4.png" alt="Iluminação do Camarote">
+            </div>
+            
+            <div class="foto-apple" data-aos="fade-up" data-aos-delay="400">
+                <img src="img/arena foto 3.png" alt="Visão Geral do Evento">
+            </div>
+            </div>
+        </section>
+
+        <div style="text-align: center; padding-bottom: 80px;" data-aos="fade-up">
+            <a href="index.html#portfolio" class="btn-destaque glow-effect">← Voltar para o Portfólio</a>
+        </div>
+    </main>
+
+    <footer class="rodape" style="text-align: center; padding: 30px; border-top: 1px solid var(--cor-borda); background-color: var(--cor-fundo);">
+        <p style="color: var(--cor-texto-secundario); font-size: 0.9rem;">&copy; 2026 OYO Solution. Todos os direitos reservados. Transformando eventos em espetáculos.</p>
+    <p>Produzido por Gustavo Vieira</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // 1. Remove a tela de carregamento com segurança
+        window.addEventListener('load', function() {
+            setTimeout(() => { document.body.classList.add('loaded'); }, 3500);
+        });
+        
+        // Fallback: se a internet oscilar, remove a tela em no máximo 5 segundos de qualquer jeito
+        setTimeout(() => { document.body.classList.add('loaded'); }, 5000);
+
+        // 2. Inicia as animações de scroll da página
+        AOS.init({ duration: 1000, once: true, offset: 100 });
+
+        // 3. Menu Hambúrguer (Mobile)
+        const menuHamburguer = document.getElementById('menu-hamburguer');
+        const menu = document.getElementById('menu');
+        if(menuHamburguer && menu) {
+            menuHamburguer.addEventListener('click', () => menu.classList.toggle('ativo'));
+        }
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>

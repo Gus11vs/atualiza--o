@@ -124,6 +124,20 @@
         .card-info h3 { margin: 0; color: #fff; }
         .card-info p { margin: 5px 0; color: var(--cor-texto-secundario); font-size: 0.9rem; }
 
+        .botoes-acao { display: flex; gap: 10px; }
+
+        .btn-editar {
+            padding: 10px 15px;
+            border-radius: 10px;
+            border: none;
+            background: rgba(48, 208, 255, 0.15);
+            color: #30d0ff;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-editar:hover { background: #30d0ff; color: #fff; }
+
         .btn-excluir {
             padding: 10px 15px;
             border-radius: 10px;
@@ -173,29 +187,28 @@
         
         <button id="btn-abrir-socio" class="btn-destaque glow-effect" style="padding: 15px;">Adicionar Sócio</button>
         <button id="btn-gerenciar-socios" class="btn-secundario">Gerenciar Sócios</button>
-
-        <p id="msg-status" style="text-align:center;font-weight:bold;"></p>
     </div>
 
     <div id="tela-cadastro-evento" class="escondido form-admin glow-effect" style="max-width:600px;">
-        <h2 style="color:var(--cor-rosa);text-align:center;">Novo Evento</h2>
+        <h2 id="titulo-tela-evento" style="color:var(--cor-rosa);text-align:center;">Novo Evento</h2>
         <input type="text" id="nome-evento" placeholder="Nome do Evento">
         <input type="text" id="data-evento" placeholder="Data">
         <input type="text" id="local-evento" placeholder="Local">
         <textarea id="descricao-evento" rows="5" placeholder="Descrição"></textarea>
+        <p style="font-size: 0.8rem; color: #888; margin-bottom: -10px;">Para manter as fotos originais ao editar, deixe este campo vazio:</p>
         <input type="file" id="fotos-evento" multiple accept="image/*">
         <button id="btn-salvar" class="btn-destaque glow-effect">Salvar e Publicar</button>
         <button onclick="voltarParaPrincipal()" class="btn-secundario">Voltar</button>
     </div>
 
     <div id="tela-socio" class="escondido form-admin glow-effect" style="max-width: 600px;">
-        <h2 style="color: var(--cor-rosa); text-align: center;">Novo Sócio</h2>
+        <h2 id="titulo-tela-socio" style="color: var(--cor-rosa); text-align: center;">Novo Sócio</h2>
         <input type="text" id="nome-socio" placeholder="Nome do Sócio">
         <textarea id="descricao-socio" rows="5" placeholder="Descrição do Sócio"></textarea>
+        <p style="font-size: 0.8rem; color: #888; margin-bottom: -10px;">Para manter a foto original ao editar, deixe este campo vazio:</p>
         <input type="file" id="foto-socio" accept="image/*">
         <button id="btn-salvar-socio" class="btn-destaque glow-effect">Salvar Sócio</button>
         <button onclick="voltarParaPrincipal()" class="btn-secundario">Voltar</button>
-        <p id="msg-socio" style="text-align: center; font-weight: bold;"></p>
     </div>
 
     <div id="tela-eventos" class="escondido form-admin glow-effect" style="max-width:700px;">
@@ -214,7 +227,7 @@
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, updateDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBuBNYOU6hQF5CQPMVtZ6qDjtY-cxpaeBA",
@@ -230,7 +243,13 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const imgbbApiKey = "c7bd55b2887f25d3af1a79c5878c8fe1";
 
-/* ================= ELEMENTOS ================= */
+/* ================= VARIÁVEIS DE CONTROLE PARA EDIÇÃO ================= */
+let editandoEventoId = null;
+let fotosEventoAtuais = [];
+let editandoSocioId = null;
+let fotoSocioAtual = "";
+
+/* ================= NAVEGAÇÃO ENTRE TELAS ================= */
 const telas = ['tela-login', 'tela-admin', 'tela-eventos', 'tela-socio', 'tela-gerenciar-socios', 'tela-cadastro-evento'];
 function mostrarTela(id) {
     telas.forEach(t => document.getElementById(t).classList.add('escondido'));
@@ -250,13 +269,38 @@ document.getElementById('btn-login').addEventListener('click', async () => {
     }
 });
 
-/* ================= NAVEGAÇÃO ================= */
-document.getElementById('btn-novo-evento').addEventListener('click', () => mostrarTela('tela-cadastro-evento'));
-document.getElementById('btn-abrir-socio').addEventListener('click', () => mostrarTela('tela-socio'));
+/* ================= BOTÕES NOVO EVENTO / SÓCIO ================= */
+// Prepara formulário para NOVO Evento
+document.getElementById('btn-novo-evento').addEventListener('click', () => {
+    editandoEventoId = null;
+    fotosEventoAtuais = [];
+    document.getElementById('titulo-tela-evento').innerText = "Novo Evento";
+    document.getElementById('btn-salvar').innerText = "Salvar e Publicar";
+    document.getElementById('nome-evento').value = "";
+    document.getElementById('data-evento').value = "";
+    document.getElementById('local-evento').value = "";
+    document.getElementById('descricao-evento').value = "";
+    document.getElementById('fotos-evento').value = "";
+    mostrarTela('tela-cadastro-evento');
+});
+
+// Prepara formulário para NOVO Sócio
+document.getElementById('btn-abrir-socio').addEventListener('click', () => {
+    editandoSocioId = null;
+    fotoSocioAtual = "";
+    document.getElementById('titulo-tela-socio').innerText = "Novo Sócio";
+    document.getElementById('btn-salvar-socio').innerText = "Salvar Sócio";
+    document.getElementById('nome-socio').value = "";
+    document.getElementById('descricao-socio').value = "";
+    document.getElementById('foto-socio').value = "";
+    mostrarTela('tela-socio');
+});
+
 document.getElementById('btn-ver-eventos').addEventListener('click', () => { mostrarTela('tela-eventos'); carregarEventos(); });
 document.getElementById('btn-gerenciar-socios').addEventListener('click', () => { mostrarTela('tela-gerenciar-socios'); carregarSocios(); });
 
-/* ================= SALVAR EVENTO ================= */
+
+/* ================= SALVAR / EDITAR EVENTO ================= */
 document.getElementById('btn-salvar').addEventListener('click', async () => {
     const btn = document.getElementById('btn-salvar');
     const nome = document.getElementById('nome-evento').value;
@@ -265,26 +309,135 @@ document.getElementById('btn-salvar').addEventListener('click', async () => {
     const descricao = document.getElementById('descricao-evento').value;
     const arquivos = document.getElementById('fotos-evento').files;
 
-    if (!nome || !data || !local || !descricao || arquivos.length === 0) return alert("Preencha tudo!");
+    if (!nome || !data || !local || !descricao) return alert("Preencha todos os campos de texto!");
+    if (!editandoEventoId && arquivos.length === 0) return alert("Para criar um evento, é necessário enviar ao menos uma foto!");
 
-    btn.innerText = "Enviando..."; btn.disabled = true;
+    btn.innerText = "Salvando..."; btn.disabled = true;
     try {
-        let urls = [];
-        for (let i = 0; i < arquivos.length; i++) {
-            const formData = new FormData();
-            formData.append('image', arquivos[i]);
-            const res = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbApiKey}`, { method: 'POST', body: formData });
-            const dados = await res.json();
-            urls.push(dados.data.url);
+        let urls = fotosEventoAtuais; // Se estiver editando, assume as fotos antigas
+
+        // Se a pessoa enviou arquivos novos, substitui as fotos
+        if (arquivos.length > 0) {
+            urls = [];
+            for (let i = 0; i < arquivos.length; i++) {
+                const formData = new FormData();
+                formData.append('image', arquivos[i]);
+                const res = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbApiKey}`, { method: 'POST', body: formData });
+                const dados = await res.json();
+                urls.push(dados.data.url);
+            }
         }
-        await addDoc(collection(db, "eventos"), { nome, data, local, descricao, fotos: urls, criadoEm: new Date() });
-        alert("Sucesso!");
+
+        if (editandoEventoId) {
+            // Atualiza evento existente
+            await updateDoc(doc(db, "eventos", editandoEventoId), { 
+                nome, data, local, descricao, fotos: urls 
+            });
+            alert("Evento atualizado com sucesso!");
+        } else {
+            // Cria evento novo
+            await addDoc(collection(db, "eventos"), { 
+                nome, data, local, descricao, fotos: urls, criadoEm: new Date() 
+            });
+            alert("Evento criado com sucesso!");
+        }
         voltarParaPrincipal();
-    } catch (e) { console.error(e); }
-    btn.innerText = "Salvar e Publicar"; btn.disabled = false;
+    } catch (e) { 
+        console.error(e); 
+        alert("Erro ao salvar!");
+    }
+    btn.disabled = false;
 });
 
-/* ================= GERENCIAR EVENTOS ================= */
+
+/* ================= SALVAR / EDITAR SÓCIO ================= */
+document.getElementById("btn-salvar-socio").addEventListener("click", async () => {
+    const btn = document.getElementById("btn-salvar-socio");
+    const nome = document.getElementById("nome-socio").value;
+    const descricao = document.getElementById("descricao-socio").value;
+    const arquivo = document.getElementById("foto-socio").files[0];
+
+    if (!nome || !descricao) return alert("Preencha o nome e a descrição!");
+    if (!editandoSocioId && !arquivo) return alert("Para um novo sócio, envie uma foto!");
+
+    btn.innerText = "Salvando..."; btn.disabled = true;
+    try {
+        let urlFoto = fotoSocioAtual;
+
+        // Se mandou foto nova, sobe e substitui
+        if (arquivo) {
+            const formData = new FormData();
+            formData.append("image", arquivo);
+            const res = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbApiKey}`, { method: "POST", body: formData });
+            const dados = await res.json();
+            urlFoto = dados.data.url;
+        }
+        
+        const slug = nome.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, "-");
+
+        if (editandoSocioId) {
+            await updateDoc(doc(db, "socios", editandoSocioId), { 
+                nome, descricao, foto: urlFoto, slug 
+            });
+            alert("Sócio atualizado!");
+        } else {
+            await addDoc(collection(db, "socios"), { 
+                nome, descricao, foto: urlFoto, slug, criadoEm: new Date() 
+            });
+            alert("Sócio cadastrado!");
+        }
+        voltarParaPrincipal();
+    } catch (e) { 
+        console.error(e); 
+        alert("Erro ao salvar Sócio!");
+    }
+    btn.disabled = false;
+});
+
+
+/* ================= FUNÇÕES DE ABRIR MODO EDIÇÃO ================= */
+window.abrirEdicaoEvento = async (id) => {
+    const docRef = doc(db, "eventos", id);
+    const docSnap = await getDoc(docRef);
+    
+    if (docSnap.exists()) {
+        const dados = docSnap.data();
+        editandoEventoId = id;
+        fotosEventoAtuais = dados.fotos || [];
+        
+        document.getElementById('nome-evento').value = dados.nome;
+        document.getElementById('data-evento').value = dados.data;
+        document.getElementById('local-evento').value = dados.local;
+        document.getElementById('descricao-evento').value = dados.descricao;
+        document.getElementById('fotos-evento').value = ""; // Deixa limpo
+        
+        document.getElementById('titulo-tela-evento').innerText = "Editar Evento";
+        document.getElementById('btn-salvar').innerText = "Atualizar Evento";
+        mostrarTela('tela-cadastro-evento');
+    }
+};
+
+window.abrirEdicaoSocio = async (id) => {
+    const docRef = doc(db, "socios", id);
+    const docSnap = await getDoc(docRef);
+    
+    if (docSnap.exists()) {
+        const dados = docSnap.data();
+        editandoSocioId = id;
+        fotoSocioAtual = dados.foto || "";
+
+        document.getElementById('nome-socio').value = dados.nome;
+        document.getElementById('descricao-socio').value = dados.descricao;
+        document.getElementById('foto-socio').value = ""; // Deixa limpo
+
+        document.getElementById('titulo-tela-socio').innerText = "Editar Sócio";
+        document.getElementById('btn-salvar-socio').innerText = "Atualizar Sócio";
+        mostrarTela('tela-socio');
+    }
+};
+
+
+/* ================= GERENCIAR LISTAS ================= */
 async function carregarEventos() {
     const lista = document.getElementById('lista-eventos');
     lista.innerHTML = "Carregando...";
@@ -294,40 +447,20 @@ async function carregarEventos() {
         const item = docSnap.data();
         const card = document.createElement('div');
         card.className = 'card-item';
-        card.innerHTML = `<div class="card-info"><h3>${item.nome}</h3><p>${item.data}</p></div>
-                          <button class="btn-excluir" onclick="excluirItem('eventos', '${docSnap.id}', 'evento')">Excluir</button>`;
+        card.innerHTML = `
+            <div class="card-info">
+                <h3>${item.nome}</h3>
+                <p>${item.data}</p>
+            </div>
+            <div class="botoes-acao">
+                <button class="btn-editar" onclick="abrirEdicaoEvento('${docSnap.id}')">Editar</button>
+                <button class="btn-excluir" onclick="excluirItem('eventos', '${docSnap.id}', 'evento')">Excluir</button>
+            </div>
+        `;
         lista.appendChild(card);
     });
 }
 
-/* ================= SALVAR SÓCIO ================= */
-document.getElementById("btn-salvar-socio").addEventListener("click", async () => {
-    const btn = document.getElementById("btn-salvar-socio");
-    const nome = document.getElementById("nome-socio").value;
-    const descricao = document.getElementById("descricao-socio").value;
-    const arquivo = document.getElementById("foto-socio").files[0];
-
-    if (!nome || !descricao || !arquivo) return alert("Preencha tudo!");
-
-    btn.innerText = "Salvando..."; btn.disabled = true;
-    try {
-        const formData = new FormData();
-        formData.append("image", arquivo);
-        const res = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbApiKey}`, { method: "POST", body: formData });
-        const dados = await res.json();
-        
-        await addDoc(collection(db, "socios"), { 
-            nome, descricao, foto: dados.data.url, 
-            slug: nome.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, "-"),
-            criadoEm: new Date() 
-        });
-        alert("Sócio cadastrado!");
-        voltarParaPrincipal();
-    } catch (e) { console.error(e); }
-    btn.innerText = "Salvar Sócio"; btn.disabled = false;
-});
-
-/* ================= GERENCIAR SÓCIOS ================= */
 async function carregarSocios() {
     const lista = document.getElementById('lista-socios');
     lista.innerHTML = "Carregando...";
@@ -337,13 +470,21 @@ async function carregarSocios() {
         const item = docSnap.data();
         const card = document.createElement('div');
         card.className = 'card-item';
-        card.innerHTML = `<div class="card-info"><h3>${item.nome}</h3><p>Sócio cadastrado</p></div>
-                          <button class="btn-excluir" onclick="excluirItem('socios', '${docSnap.id}', 'socio')">Excluir</button>`;
+        card.innerHTML = `
+            <div class="card-info">
+                <h3>${item.nome}</h3>
+                <p>Sócio cadastrado</p>
+            </div>
+            <div class="botoes-acao">
+                <button class="btn-editar" onclick="abrirEdicaoSocio('${docSnap.id}')">Editar</button>
+                <button class="btn-excluir" onclick="excluirItem('socios', '${docSnap.id}', 'socio')">Excluir</button>
+            </div>
+        `;
         lista.appendChild(card);
     });
 }
 
-/* ================= FUNÇÃO EXCLUIR GENÉRICA ================= */
+/* ================= FUNÇÃO EXCLUIR ================= */
 window.excluirItem = async (pasta, id, tipo) => {
     if (confirm(`Deseja mesmo excluir este ${tipo}?`)) {
         await deleteDoc(doc(db, pasta, id));
@@ -353,11 +494,12 @@ window.excluirItem = async (pasta, id, tipo) => {
 </script>
 
 <script>
-const cursorGlow=document.createElement('div');
+/* Cursor Glow */
+const cursorGlow = document.createElement('div');
 cursorGlow.classList.add('cursor-glow');
 document.body.appendChild(cursorGlow);
-document.addEventListener('mousemove',(e)=>{
-    requestAnimationFrame(()=>{
+document.addEventListener('mousemove', (e) => {
+    requestAnimationFrame(() => {
         cursorGlow.style.left = e.clientX + 'px';
         cursorGlow.style.top = e.clientY + 'px';
         cursorGlow.style.transform = 'translate(-50%, -50%)';
